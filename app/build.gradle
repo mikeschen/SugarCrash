@@ -11,6 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,6 +34,7 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'NUTRITIONIX_API_KEY', NutritionixApiKey
         it.buildConfigField 'String', 'NUTRITIONIX_APP_ID', NutritionixAppId
+        it.buildConfigField 'String', 'FIREBASE_ROOT_URL', FirebaseRootUrl
 
     }
 }
@@ -38,4 +53,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'com.firebase:firebase-client-android:2.3.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
