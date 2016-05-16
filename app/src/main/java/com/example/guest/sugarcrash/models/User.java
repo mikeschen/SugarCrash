@@ -6,12 +6,17 @@ package com.example.guest.sugarcrash.models;
 public class User {
     private String name;
     private String email;
+    private int age;
+    private String sex;
+
 
     public User() {}
 
-    public User(String name, String email) {
+    public User(String name, String email, int age, String sex) {
         this.name = name;
         this.email = email;
+        this.age = age;
+        this.sex = sex;
     }
 
     public String getName() {
@@ -21,5 +26,9 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public int getAge() { return age; }
+
+    public String getSex() { return sex; }
 }
 
