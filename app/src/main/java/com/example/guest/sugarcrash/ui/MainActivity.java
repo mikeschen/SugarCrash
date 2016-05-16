@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
+        Log.d("muid", mUserRef + "");
         ButterKnife.bind(this);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
