@@ -50,7 +50,7 @@
         android:textColorHint="@color/colorTextIcons"
         android:layout_marginTop="20dp"
         android:layout_margin="2dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:background="#ffffff"
         android:textSize="20sp"/>
 
@@ -61,7 +61,7 @@
         android:inputType="textEmailAddress"
         android:hint="Email"
         android:layout_margin="2dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:textColorHint="@color/colorTextIcons"
         android:background="#ffffff"
         android:textSize="20sp"/>
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_margin="2dp"
         android:hint="Password"
         android:textColorHint="@color/colorTextIcons"
@@ -84,13 +84,26 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:background="#ffffff"
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_margin="2dp"
         android:hint="Confirm password"
         android:textColorHint="@color/colorTextIcons"
         android:textSize="20sp"/>
 
-    <Button
+        <EditText
+            android:id="@+id/ageEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:layout_margin="2dp"
+            android:inputType="number"
+            android:ems="10"
+            android:hint="Enter Age"
+            android:textColorHint="@color/colorTextIcons"
+            android:textSize="20sp"/>
+
+        <Button
         android:id="@+id/createUserButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

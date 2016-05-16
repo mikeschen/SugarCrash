@@ -33,6 +33,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
+    @Bind(R.id.ageEditText) EditText mAgeEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
     private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
@@ -68,12 +69,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final String email = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
         final String confirmPassword = mConfirmPasswordEditText.getText().toString();
+        final String age = mAgeEditText.getText().toString();
 
         mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
                 String uid = result.get("uid").toString();
-                createUserInFirebaseHelper(name, email, uid);
+                createUserInFirebaseHelper(name, email, age, uid);
                 mFirebaseRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
 
                     @Override
@@ -118,9 +120,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private void showErrorToast(String message) {
         Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_LONG).show();
     }
-    private void createUserInFirebaseHelper(final String name, final String email, final String uid) {
+    private void createUserInFirebaseHelper(final String name, final String email, final String age, final String uid) {
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
-        User newUser = new User(name, email);
+        User newUser = new User(name, email, age);
         userLocation.setValue(newUser);
     }
 }
