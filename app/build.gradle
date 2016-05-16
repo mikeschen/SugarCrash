@@ -17,10 +17,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'NUTRITIONIX_API_KEY', NutritionixApiKey
+        it.buildConfigField 'String', 'NUTRITIONIX_APP_ID', NutritionixAppId
+
+    }
 }
+
+repositories {
+    jcenter()
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    compile 'com.google.zxing:core:3.2.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.android.support:design:23.3.0'
 }
