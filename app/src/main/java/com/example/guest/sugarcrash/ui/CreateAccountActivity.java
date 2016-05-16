@@ -70,6 +70,11 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final String confirmPassword = mConfirmPasswordEditText.getText().toString();
         final int age = Integer.parseInt(mAgeEditText.getText().toString());
 
+        boolean validEmail = isValidEmail(email);
+        boolean validName = isValidName(name);
+        boolean validPassword = isValidPassword(password, confirmPassword);
+        if (!validEmail || !validName || !validPassword) return;
+
         mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
@@ -81,6 +86,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                     public void onAuthenticated(AuthData authData) {
                         if (authData != null) {
                             String userUid = authData.getUid();
+                            String userInfo = authData.toString();
+                            Log.d(TAG, "Currently logged in: " + userInfo);
+
                             mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
                             Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -123,5 +131,31 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
         User newUser = new User(name, email, age);
         userLocation.setValue(newUser);
+    }
+
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail =
+                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mEmailEditText.setError("Please enter a valid email address");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mNameEditText.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            mPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
     }
 }
