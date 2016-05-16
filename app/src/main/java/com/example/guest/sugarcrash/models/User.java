@@ -7,14 +7,16 @@ public class User {
     private String name;
     private String email;
     private int age;
+    private String sex;
 
 
     public User() {}
 
-    public User(String name, String email, int age) {
+    public User(String name, String email, int age, String sex) {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.sex = sex;
     }
 
     public String getName() {
@@ -26,5 +28,7 @@ public class User {
     }
 
     public int getAge() { return age; }
+
+    public String getSex() { return sex; }
 }
 

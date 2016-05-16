@@ -97,7 +97,7 @@
             android:textSize="20sp"/>
 
             <RadioGroup
-                android:id="@+id/radioGrp"
+                android:id="@+id/radioSex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -106,25 +106,25 @@
                 android:padding="5dp"
                 >
                 <RadioButton
-                    android:id="@+id/radioM"
+                    android:id="@+id/radioMale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:checked="true"
                     android:layout_weight="1"
                     android:textSize="14dp"
-                    android:text="Male"
+                    android:text="male"
                     android:textColor="@color/colorTextIcons"
                     />
                 <RadioButton
-                    android:id="@+id/radioF"
+                    android:id="@+id/radioFemale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:checked="false"
                     android:layout_weight="1"
                     android:textSize="14dp"
-                    android:text="Female"
+                    android:text="female"
                     android:textColor="@color/colorTextIcons"
                     />
             </RadioGroup>
@@ -133,17 +133,17 @@
         android:id="@+id/createUserButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="7dp"
         android:text="Sign up"
         android:background="@color/colorAccent"
         android:layout_marginTop="15dp"
-        android:textColor="@color/colorTextIcons" />
+        android:textColor="#ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorTextIcons"
+            android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="Already have an account? Log in here!"

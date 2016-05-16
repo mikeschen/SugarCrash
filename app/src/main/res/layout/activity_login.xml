@@ -66,16 +66,17 @@
             android:text="Log in"
             android:background="@color/colorAccent"
             android:layout_marginTop="15dp"
-            android:textColor="@color/colorTextIcons" />
+            android:textColor="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorTextIcons"
+            android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="Don't have an account? Sign up here!"
+            android:layout_below="@id/passwordLoginButton"
             android:id="@+id/registerTextView"
             android:layout_gravity="center_horizontal" />
 
