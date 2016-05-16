@@ -25,6 +25,8 @@ public class NutritionixService {
     private String APPID_QUERY = Constants.APPID_QUERY;
     private String APPKEY_QUERY = Constants.APPKEY_QUERY;
     private String RESULT_QUANTITY_DEFAULT = Constants.RESULT_QUANTITY_DEFAULT;
+    private String ITEM_PATH_SEGMENT = Constants.ITEM_PATH_SEGMENT;
+    private String UPC_QUERY = Constants.UPC_QUERY;
 
     public void searchFoods(String userSearch, Callback callback){
 
@@ -47,6 +49,18 @@ public class NutritionixService {
     }
 
     public void searchUPC(String upc, Callback callback){
-        OkHttpClient
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL).newBuilder();
+        urlBuilder.addPathSegment(ITEM_PATH_SEGMENT);
+        urlBuilder.addQueryParameter(UPC_QUERY, upc);
+        urlBuilder.addQueryParameter(APPID_QUERY, APP_ID);
+        urlBuilder.addQueryParameter(APPKEY_QUERY, API_KEY);
+
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        Log.v(TAG, "search url: " + request);
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
     }
 }

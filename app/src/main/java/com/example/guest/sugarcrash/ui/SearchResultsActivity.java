@@ -31,12 +31,35 @@ public class SearchResultsActivity extends BaseActivity {
             searchDatabaseByTerm();
         } else if(mSearchType != null && mSearchType.equals("upc")){
             Log.v(TAG, mSearchString + " " + mSearchType);
+            searchDatabaseByUpc();
         }
     }
 
     private void searchDatabaseByTerm(){
         final NutritionixService nutritionixService = new NutritionixService();
         nutritionixService.searchFoods(mSearchString, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try{
+                    String jsonData = response.body().string();
+                    if(response.isSuccessful()){
+                        Log.v(TAG, jsonData);
+                    }
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void searchDatabaseByUpc(){
+        final NutritionixService nutritionixService = new NutritionixService();
+        nutritionixService.searchUPC(mSearchString, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
