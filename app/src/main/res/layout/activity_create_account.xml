@@ -96,6 +96,39 @@
             android:textColorHint="@color/colorTextIcons"
             android:textSize="20sp"/>
 
+            <RadioGroup
+                android:id="@+id/radioGrp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                android:layout_margin="2dp"
+                android:padding="5dp"
+                >
+                <RadioButton
+                    android:id="@+id/radioM"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:checked="true"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:text="Male"
+                    android:textColor="@color/colorTextIcons"
+                    />
+                <RadioButton
+                    android:id="@+id/radioF"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    android:textSize="14dp"
+                    android:text="Female"
+                    android:textColor="@color/colorTextIcons"
+                    />
+            </RadioGroup>
+
         <Button
         android:id="@+id/createUserButton"
         android:layout_width="match_parent"
