@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.Constants;
@@ -20,33 +23,36 @@ import com.example.guest.sugarcrash.R;
 import com.example.guest.sugarcrash.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener, SearchDialogFragment.SearchDialogFragmentListener {
     private static final int REQUEST_IMAGE_CAPTURE = 111;
     private ImageView mImageView;
     private Bitmap mImageBitmap;
-    private Firebase mFirebaseRef;
+    @Bind(R.id.searchButton) Button mSearchButton;
+    @Bind(R.id.upcButton) Button mUpcButton;
     private ValueEventListener mUserRefListener;
     private Firebase mUserRef;
     private String mUId;
-    private SharedPreferences mSharedPreferences;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        ButterKnife.bind(this);
+        mSearchButton.setOnClickListener(this);
+        mUpcButton.setOnClickListener(this);
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
         Log.d("muid", mUserRef + "");
         ButterKnife.bind(this);
-        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,26 +79,63 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_photo:
-                onLaunchCamera();
             case R.id.action_logout:
                 logout();
                 return true;
-            default:
-                break;
         }
         return false;
     }
-    public void onLaunchCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.searchButton:
+                showFoodSearchDialog();
+                break;
+            case R.id.upcButton:
+                scanUPC();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void showFoodSearchDialog(){
+        FragmentManager fm = getSupportFragmentManager();
+        SearchDialogFragment searchFragment = SearchDialogFragment.newInstance("Input Search Term");
+        searchFragment.setStyle(SearchDialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+        searchFragment.show(fm, "fragment_search_dialog");
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        addSearchTypeToSharedPreferences("string");
+        Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+        intent.putExtra("inputText", inputText);
+        startActivity(intent);
+    }
+
+    public void scanUPC(){
+        addSearchTypeToSharedPreferences("upc");
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scan a food barcode");
+        integrator.setCameraId(0);
+        //integrator.setBeepEnabled(true);
+        integrator.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if(scanningResult != null){
+            String scanContent = scanningResult.getContents();
+            Intent searchIntent = new Intent(MainActivity.this, SearchResultsActivity.class);
+            searchIntent.putExtra("inputText", scanContent);
+            startActivity(searchIntent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
     protected void logout() {

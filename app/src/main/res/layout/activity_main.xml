@@ -9,6 +9,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ui.MainActivity">
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/searchButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="47dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan UPC"
+        android:id="@+id/upcButton"
+        android:layout_alignTop="@+id/searchButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginStart="42dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,5 +42,6 @@
         android:textSize="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
