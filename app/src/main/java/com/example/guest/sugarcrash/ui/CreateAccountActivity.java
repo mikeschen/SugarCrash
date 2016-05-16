@@ -57,7 +57,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             createNewUser();
         }
         if (view == mLoginTextView) {
-            Log.d("log  in", "hello");
             Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -69,7 +68,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final String email = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
         final String confirmPassword = mConfirmPasswordEditText.getText().toString();
-        final String age = mAgeEditText.getText().toString();
+        final int age = Integer.parseInt(mAgeEditText.getText().toString());
 
         mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
@@ -120,7 +119,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private void showErrorToast(String message) {
         Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_LONG).show();
     }
-    private void createUserInFirebaseHelper(final String name, final String email, final String age, final String uid) {
+    private void createUserInFirebaseHelper(final String name, final String email, final int age, final String uid) {
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
         User newUser = new User(name, email, age);
         userLocation.setValue(newUser);
