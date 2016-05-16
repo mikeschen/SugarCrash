@@ -7,6 +7,13 @@ import android.util.Log;
 
 import com.example.guest.sugarcrash.Constants;
 import com.example.guest.sugarcrash.R;
+import com.example.guest.sugarcrash.services.NutritionixService;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class SearchResultsActivity extends BaseActivity {
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
@@ -21,5 +28,30 @@ public class SearchResultsActivity extends BaseActivity {
         mSearchString = intent.getStringExtra("inputText");
         mSearchType = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_TYPE_KEY, null);
         Log.v(TAG, mSearchString + " " + mSearchType);
+        if(mSearchType.equals("string")){
+            searchDatabaseByTerm();
+        }
+    }
+
+    private void searchDatabaseByTerm(){
+        final NutritionixService nutritionixService = new NutritionixService();
+        nutritionixService.searchFoods(mSearchString, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try{
+                    String jsonData = response.body().string();
+                    if(response.isSuccessful()){
+                        Log.v(TAG, jsonData);
+                    }
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

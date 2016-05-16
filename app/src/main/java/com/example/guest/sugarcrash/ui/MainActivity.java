@@ -23,8 +23,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int REQUEST_IMAGE_CAPTURE = 111;
     private ImageView mImageView;
     private Bitmap mImageBitmap;
-    @Bind(R.id.searchButton)
-    Button mSearchButton;
+    @Bind(R.id.searchButton) Button mSearchButton;
+    @Bind(R.id.upcButton) Button mUpcButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
