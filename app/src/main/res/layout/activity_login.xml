@@ -9,22 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.guest.sugarcrash.ui.LoginActivity"
     android:background="@color/colorPrimary">
-
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/textView4"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:textColor="@color/colorAccent"
+        android:id="@+id/imageView"
+        android:src="@drawable/sugar_icon"
         android:gravity="center"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
-        android:paddingTop="55dp"
-        android:paddingBottom="55dp"
-        android:background="@color/colorTextIcons"/>
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -38,7 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/textView4">
+        android:layout_below="@+id/imageView">
 
         <EditText
             android:id="@+id/emailEditText"
@@ -46,6 +39,8 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:hint="Email"
+            android:padding="10dp"
+            android:layout_margin="2dp"
             android:textColorHint="@color/colorTextIcons"
             android:layout_marginTop="30dp"
             android:background="#ffffff"
@@ -58,6 +53,7 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:hint="Password"
+            android:layout_margin="2dp"
             android:background="#ffffff"
             android:textColorHint="@color/colorTextIcons"
             android:textSize="20sp"/>
@@ -70,16 +66,17 @@
             android:text="Log in"
             android:background="@color/colorAccent"
             android:layout_marginTop="15dp"
-            android:textColor="@color/colorTextIcons" />
+            android:textColor="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorTextIcons"
+            android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="Don't have an account? Sign up here!"
+            android:layout_below="@id/passwordLoginButton"
             android:id="@+id/registerTextView"
             android:layout_gravity="center_horizontal" />
 

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,10 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
+    @Bind(R.id.ageEditText) EditText mAgeEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
+    @Bind(R.id.radioSex) RadioGroup mRadioSexGroup;
+    private RadioButton mRadioSexButton;
     private Firebase mFirebaseRef;
     private SharedPreferences.Editor mSharedPreferencesEditor;
     private SharedPreferences mSharedPreferences;
@@ -53,10 +58,11 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         if (view == mCreateUserButton) {
+            int selectedId = mRadioSexGroup.getCheckedRadioButtonId();
+            mRadioSexButton = (RadioButton) findViewById(selectedId);
             createNewUser();
         }
         if (view == mLoginTextView) {
-            Log.d("log  in", "hello");
             Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -68,18 +74,28 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         final String email = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
         final String confirmPassword = mConfirmPasswordEditText.getText().toString();
+        final int age = Integer.parseInt(mAgeEditText.getText().toString());
+        final String sex = mRadioSexButton.getText().toString();
+
+        boolean validEmail = isValidEmail(email);
+        boolean validName = isValidName(name);
+        boolean validPassword = isValidPassword(password, confirmPassword);
+        if (!validEmail || !validName || !validPassword) return;
 
         mFirebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
                 String uid = result.get("uid").toString();
-                createUserInFirebaseHelper(name, email, uid);
+                createUserInFirebaseHelper(name, email, age, sex, uid);
                 mFirebaseRef.authWithPassword(email, password, new Firebase.AuthResultHandler() {
 
                     @Override
                     public void onAuthenticated(AuthData authData) {
                         if (authData != null) {
                             String userUid = authData.getUid();
+                            String userInfo = authData.toString();
+                            Log.d(TAG, "Currently logged in: " + userInfo);
+
                             mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
                             Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -118,9 +134,35 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private void showErrorToast(String message) {
         Toast.makeText(CreateAccountActivity.this, message, Toast.LENGTH_LONG).show();
     }
-    private void createUserInFirebaseHelper(final String name, final String email, final String uid) {
+    private void createUserInFirebaseHelper(final String name, final String email, final int age, final String sex, final String uid) {
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
-        User newUser = new User(name, email);
+        User newUser = new User(name, email, age, sex);
         userLocation.setValue(newUser);
+    }
+
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail =
+                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mEmailEditText.setError("Please enter a valid email address");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mNameEditText.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            mPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
     }
 }
