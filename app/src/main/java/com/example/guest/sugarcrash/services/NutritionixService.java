@@ -45,4 +45,8 @@ public class NutritionixService {
         call.enqueue(callback);
 
     }
+
+    public void searchUPC(String upc, Callback callback){
+        OkHttpClient
+    }
 }

@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.guest.sugarcrash.R;
 import com.firebase.client.Firebase;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mSearchButton.setOnClickListener(this);
-
+        mUpcButton.setOnClickListener(this);
     }
 
     @Override
@@ -42,34 +45,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_photo:
-                onLaunchCamera();
-            default:
-                break;
-        }
-        return false;
-    }
-    public void onLaunchCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.action_photo:
+//                onLaunchCamera();
+//            default:
+//                break;
+//        }
+//        return false;
+//    }
+//    public void onLaunchCamera() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            mImageView.setImageBitmap(imageBitmap);
+//        }
+//    }
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.searchButton:
                 showFoodSearchDialog();
                 break;
+            case R.id.upcButton:
+                scanUPC();
             default:
                 break;
         }
@@ -89,5 +94,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
         intent.putExtra("inputText", inputText);
         startActivity(intent);
+    }
+
+    public void scanUPC(){
+        addSearchTypeToSharedPreferences("upc");
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scan a food barcode");
+        integrator.setCameraId(0);
+        //integrator.setBeepEnabled(true);
+        integrator.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if(scanningResult != null){
+            String scanContent = scanningResult.getContents();
+            Intent searchIntent = new Intent(MainActivity.this, SearchResultsActivity.class);
+            searchIntent.putExtra("inputText", scanContent);
+            startActivity(searchIntent);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

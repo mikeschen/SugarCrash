@@ -27,9 +27,10 @@ public class SearchResultsActivity extends BaseActivity {
         Intent intent = getIntent();
         mSearchString = intent.getStringExtra("inputText");
         mSearchType = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_TYPE_KEY, null);
-        Log.v(TAG, mSearchString + " " + mSearchType);
-        if(mSearchType.equals("string")){
+        if(mSearchType != null && mSearchType.equals("string")){
             searchDatabaseByTerm();
+        } else if(mSearchType != null && mSearchType.equals("upc")){
+            Log.v(TAG, mSearchString + " " + mSearchType);
         }
     }
 
