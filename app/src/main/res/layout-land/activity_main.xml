@@ -98,7 +98,7 @@
             android:layout_below="@+id/LinearLayout03"
             android:id="@+id/maxDaily"
             android:textColor="#000000"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:textAlignment="center" />
 
     </RelativeLayout>
