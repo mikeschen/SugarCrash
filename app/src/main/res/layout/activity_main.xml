@@ -33,7 +33,7 @@
         android:textColor="@color/colorWhiteText"
         android:id="@+id/searchButton"
         android:background="@color/colorAccent"
-        android:padding="22dp"
+        android:padding="16dp"
         android:textSize="20sp"
         android:layout_weight="1"
         />
@@ -45,7 +45,7 @@
         android:id="@+id/upcButton"
         android:textColor="@color/colorWhiteText"
         android:textSize="20sp"
-        android:padding="22dp"
+        android:padding="16dp"
         android:layout_weight="1"
         android:background="@color/colorPrimaryDark" />
 
@@ -78,12 +78,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rec. Daily 25g"
+        android:text="Recommended Daily 25g"
         android:layout_below="@+id/piechart"
         android:id="@+id/maxDaily"
-        android:textColor="@color/colorWhiteText"
+        android:textColor="#000000"
         android:textSize="20dp"
-        android:background="#2b498b"
         android:textAlignment="center" />
 
 </RelativeLayout>

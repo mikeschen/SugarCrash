@@ -1,7 +1,9 @@
 package com.example.guest.sugarcrash.ui;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -50,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private String mUId;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
     private double x = 16.7;
+    private int mOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
         mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
 
+
+
         mPieChart.startAnimation();
 
 
@@ -98,7 +105,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Log.d("Login", "Read failed");
             }
         });
+
+        mOrientation = this.getResources().getConfiguration().orientation;
+        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+            View decorView = getWindow().getDecorView();
+// Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+// Remember that you should never show the action bar if the
+// status bar is hidden, so hide that too if necessary.
+            getSupportActionBar().hide();
+        }
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
