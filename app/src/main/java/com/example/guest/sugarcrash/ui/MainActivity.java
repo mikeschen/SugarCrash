@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
         Log.d("muid", mUserRef + "");
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/SpicyRice-Regular.ttf");
         mWelcomeTextView.setTypeface(myCustomFont);
         mSearchButton.setTypeface(myCustomFont);
         mMaxDaily.setTypeface(myCustomFont);

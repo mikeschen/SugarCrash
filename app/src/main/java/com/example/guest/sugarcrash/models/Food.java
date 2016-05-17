@@ -1,8 +1,11 @@
 package com.example.guest.sugarcrash.models;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Guest on 5/17/16.
  */
+@Parcel
 public class Food {
     String itemId;
     String itemName;

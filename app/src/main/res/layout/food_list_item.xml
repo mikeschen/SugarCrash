@@ -6,6 +6,23 @@
     android:background="#ffffff"
     android:padding="10dp"
     android:layout_margin="6dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/brandNameTextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Brand Name"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodNameTextView"
+        android:textSize="20sp"
+        android:text="Food Name"
+        android:textColor="@color/colorPrimary" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -16,23 +33,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:layout_height="90dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/brandNameTextView"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="left"
-                android:text="Brand Name"
-                android:textColor="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calories"
-                android:id="@+id/caloriesTextView"
+                android:id="@+id/sugarTextView"
                 android:textColor="@color/colorAccent"/>
 
             <TextView
@@ -48,17 +56,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:layout_height="90dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/foodNameTextView"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="Food Name"
-                android:textColor="@color/colorPrimary"
-                android:layout_gravity="right" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,7 +81,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
         android:id="@+id/descriptionTextView"/>
 
 </LinearLayout>
