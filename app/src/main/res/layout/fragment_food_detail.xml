@@ -100,7 +100,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_above="@+id/saveFoodButton"
+                android:id="@+id/radioGroupLayout"
                 android:paddingLeft="30dp"
                 android:paddingTop="20dp"
                 android:paddingRight="30dp">
@@ -112,7 +112,6 @@
                     android:id="@+id/servingAmountTextView"
                     android:textSize="17sp"/>
 
-                <?xml version="1.0" encoding="utf-8"?>
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -141,7 +140,29 @@
                         android:text="@string/three"
                         android:onClick="onRadioButtonClicked"/>
                 </RadioGroup>
+
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentDateTextView"
+                android:text="@string/dateConsumed"
+                android:textSize="17sp"
+                android:layout_marginBottom="34dp"
+                android:layout_above="@+id/datePickerButton"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Date"
+                android:id="@+id/datePickerButton"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorLightText"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
 
             <Button
                 android:layout_width="match_parent"
@@ -150,7 +171,7 @@
                 android:id="@+id/saveFoodButton"
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorAccent"
-                android:textColor="@color/colorTextIcons"
+                android:textColor="@color/colorLightText"
                 android:textSize="15sp" />
         </RelativeLayout>
     </LinearLayout>
