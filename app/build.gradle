@@ -35,7 +35,6 @@ android {
         it.buildConfigField 'String', 'NUTRITIONIX_API_KEY', NutritionixApiKey
         it.buildConfigField 'String', 'NUTRITIONIX_APP_ID', NutritionixAppId
         it.buildConfigField 'String', 'FIREBASE_ROOT_URL', FirebaseRootUrl
-
     }
 }
 

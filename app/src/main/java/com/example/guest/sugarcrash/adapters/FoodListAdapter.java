@@ -1,6 +1,7 @@
 package com.example.guest.sugarcrash.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         @Bind(R.id.servingsPerContainerTextView) TextView mServingsPerContainerTextView;
         @Bind(R.id.descriptionTextView) TextView mDescriptionTextView;
         private Context mContext;
+        public Typeface myCustomFont;
 
         public FoodViewHolder(View itemView) {
             super(itemView);
@@ -61,13 +63,20 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         }
 
         public void bindFood(Food food) {
+            myCustomFont = Typeface.createFromAsset(mContext.getAssets(), "fonts/SpicyRice-Regular.ttf");
             mBrandNameTextView.setText(food.getBrandName());
             mFoodNameTextView.setText(food.getItemName());
             mSugarContentTextView.setText("Sugars " + food.getSugars() + "g");
             mCaloriesTextView.setText("Calories " + food.getCalories());
-            mServingSizeTextView.setText("Serving Size " +food.getServingSizeQuantity() + food.getServingSizeUnit());
+            mServingSizeTextView.setText("Serving Size " +food.getServingSizeQuantity() + " " + food.getServingSizeUnit());
             mServingsPerContainerTextView.setText("Servings Per Container " + food.getServingsPerContainer());
-            mDescriptionTextView.setText(food.getItemDescription());
+            if(!food.getItemDescription().equals("null")){
+                mDescriptionTextView.setText(food.getItemDescription());
+            } else {
+                mDescriptionTextView.setText("");
+            }
+            mBrandNameTextView.setTypeface(myCustomFont);
+            mFoodNameTextView.setTypeface(myCustomFont);
         }
     }
 }

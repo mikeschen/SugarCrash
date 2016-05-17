@@ -94,7 +94,7 @@ public class NutritionixService {
                     double monounsaturatedFat = foodsJSON.optDouble("nf_monounsaturated_fat", 0);
                     double cholesterol = foodsJSON.optDouble("nf_cholesterol", 0);
                     double sodium = foodsJSON.getDouble("nf_sodium");
-                    double sugars = foodsJSON.getDouble("nf_sugars");
+                    double sugars = foodsJSON.optDouble("nf_sugars", 0);
                     double servingsPerContainer = foodsJSON.optDouble("nf_servings_per_container", 0);
                     double servingSizeQuantity = foodsJSON.optDouble("nf_serving_size_qty", 0);
                     String servingSizeUnit = foodsJSON.getString("nf_serving_size_unit");
