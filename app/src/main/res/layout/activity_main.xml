@@ -10,21 +10,22 @@
     tools:context=".ui.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome User"
         android:id="@+id/welcomeTextView"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20dp"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="22dp"
+        android:background="#252525"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:id="@+id/LinearLayout02"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_width="fill_parent"
-        android:layout_below="@+id/welcomeTextView"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@+id/welcomeTextView">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,8 +48,19 @@
         android:padding="22dp"
         android:layout_weight="1"
         android:background="@color/colorPrimaryDark" />
+
 </LinearLayout>
-
-
+    <org.eazegraph.lib.charts.BarChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/barchart"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:padding="10dp"
+        app:egBarWidth="20dp"
+        app:egLegendHeight="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/LinearLayout02"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
