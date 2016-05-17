@@ -12,7 +12,7 @@ public class Food {
     double totalFat;
     double saturatedFat;
     double polyunsaturatedFat;
-    double monoUnsaturatedFat;
+    double monounsaturatedFat;
     double cholesterol;
     double sodium;
     double sugars;
@@ -25,7 +25,7 @@ public class Food {
 
     public Food() {}
 
-    public Food(String itemId, String itemName, String brandName, String itemDescription, double calories, double totalFat, double saturatedFat, double polyunsaturatedFat, double monoUnsaturatedFat, double cholesterol, double sodium, double sugars, double servingsPerContainer, double servingSizeQuantity, String servingSizeUnit, double servingWeightGrams, double protein) {
+    public Food(String itemId, String itemName, String brandName, String itemDescription, double calories, double totalFat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double cholesterol, double sodium, double sugars, double servingsPerContainer, double servingSizeQuantity, String servingSizeUnit, double servingWeightGrams, double protein) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.brandName = brandName;
@@ -34,7 +34,7 @@ public class Food {
         this.totalFat = totalFat;
         this.saturatedFat = saturatedFat;
         this.polyunsaturatedFat = polyunsaturatedFat;
-        this.monoUnsaturatedFat = monoUnsaturatedFat;
+        this.monounsaturatedFat = monounsaturatedFat;
         this.cholesterol = cholesterol;
         this.sodium = sodium;
         this.sugars = sugars;
@@ -78,7 +78,7 @@ public class Food {
     }
 
     public double getMonoUnsaturatedFat() {
-        return monoUnsaturatedFat;
+        return monounsaturatedFat;
     }
 
     public double getCholesterol() {
