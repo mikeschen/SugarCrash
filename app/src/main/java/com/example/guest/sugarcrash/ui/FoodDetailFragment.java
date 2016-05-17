@@ -3,9 +3,11 @@ package com.example.guest.sugarcrash.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
@@ -63,5 +65,7 @@ public class FoodDetailFragment extends Fragment {
         mServingsPerContainerTextView.setText("Servings Per Container " + mFood.getServingsPerContainer());
         return view;
     }
+
+
 
 }
