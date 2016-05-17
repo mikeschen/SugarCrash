@@ -3,6 +3,7 @@ package com.example.guest.sugarcrash.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
@@ -52,7 +53,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
         Log.d("muid", mUserRef + "");
-        ButterKnife.bind(this);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/SpicyRice-Regular.ttf");
+        mWelcomeTextView.setTypeface(myCustomFont);
+        mSearchButton.setTypeface(myCustomFont);
+        mUpcButton.setTypeface(myCustomFont);
+
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
