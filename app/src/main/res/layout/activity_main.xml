@@ -54,13 +54,36 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barchart"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:padding="10dp"
         app:egBarWidth="20dp"
         app:egLegendHeight="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/LinearLayout02"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/LinearLayout02" />
+
+    <org.eazegraph.lib.charts.PieChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/barchart"
+        android:padding="8dp"
+        app:egLegendTextSize="18sp"
+        app:egUsePieRotation="true"
+        app:egValueTextSize="36sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rec. Daily 25g"
+        android:layout_below="@+id/piechart"
+        android:id="@+id/maxDaily"
+        android:textColor="@color/colorWhiteText"
+        android:textSize="20dp"
+        android:background="#2b498b"
+        android:textAlignment="center" />
 
 </RelativeLayout>

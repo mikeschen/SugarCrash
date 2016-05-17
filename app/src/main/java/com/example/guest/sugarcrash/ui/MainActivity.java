@@ -3,6 +3,7 @@ package com.example.guest.sugarcrash.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -30,7 +31,9 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
+import org.eazegraph.lib.models.PieModel;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private Bitmap mImageBitmap;
     @Bind(R.id.searchButton) Button mSearchButton;
     @Bind(R.id.upcButton) Button mUpcButton;
+    @Bind(R.id.maxDaily) TextView mMaxDaily;
     private ValueEventListener mUserRefListener;
     private Firebase mUserRef;
     private String mUId;
@@ -60,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/SpicyRice-Regular.ttf");
         mWelcomeTextView.setTypeface(myCustomFont);
         mSearchButton.setTypeface(myCustomFont);
+        mMaxDaily.setTypeface(myCustomFont);
         mUpcButton.setTypeface(myCustomFont);
         BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
 
@@ -72,6 +77,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mBarChart.addBar(new BarModel("Sat", 4, 0xFF1F04AC));
 
         mBarChart.startAnimation();
+
+        PieChart mPieChart = (PieChart) findViewById(R.id.piechart);
+
+        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
+        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
+
+        mPieChart.startAnimation();
 
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
