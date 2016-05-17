@@ -49,7 +49,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodVi
         @Bind(R.id.brandNameTextView) TextView mBrandNameTextView;
         @Bind(R.id.foodNameTextView) TextView mFoodNameTextView;
         @Bind(R.id.sugarContentTextView) TextView mSugarContentTextView;
-        @Bind(R.id.caloriesTextView) TextView mCaloriesTextView;
+        @Bind(R.id.sugarTextView) TextView mCaloriesTextView;
         @Bind(R.id.servingSizeTextView) TextView mServingSizeTextView;
         @Bind(R.id.servingsPerContainerTextView) TextView mServingsPerContainerTextView;
         @Bind(R.id.descriptionTextView) TextView mDescriptionTextView;
