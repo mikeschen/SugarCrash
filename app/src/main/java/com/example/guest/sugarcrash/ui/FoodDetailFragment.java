@@ -2,12 +2,12 @@ package com.example.guest.sugarcrash.ui;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
@@ -15,19 +15,22 @@ import com.example.guest.sugarcrash.models.Food;
 
 import org.parceler.Parcels;
 
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FoodDetailFragment extends Fragment {
+public class FoodDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.brandNameTextView) TextView mBrandNameTextView;
     @Bind(R.id.foodNameTextView) TextView mFoodNameTextView;
     @Bind(R.id.caloriesTextView) TextView mCaloriesTextView;
     @Bind(R.id.sugarTextView) TextView mSugarContentTextView;
     @Bind(R.id.servingsPerContainerTextView) TextView mServingsPerContainerTextView;
     @Bind(R.id.servingSizeTextView) TextView mServingSizeTextView;
+    @Bind(R.id.datePickerButton) Button mDatePickerButton;
+    @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
 
     private Food mFood;
 
@@ -63,9 +66,25 @@ public class FoodDetailFragment extends Fragment {
         mSugarContentTextView.setText("Sugars " + mFood.getSugars() + "g");
         mServingSizeTextView.setText("Serving Size " + mFood.getServingSizeQuantity() + " " + mFood.getServingSizeUnit());
         mServingsPerContainerTextView.setText("Servings Per Container " + mFood.getServingsPerContainer());
+
+        mDatePickerButton.setOnClickListener(this);
+        mSaveFoodButton.setOnClickListener(this);
         return view;
     }
 
+    @Override
+    public void onClick(View view){
+        switch(view.getId()){
+            case R.id.saveFoodButton:
+                break;
+            case R.id.datePickerButton:
+
+                break;
+            default:
+                break;
+        }
+
+    }
 
 
 }
