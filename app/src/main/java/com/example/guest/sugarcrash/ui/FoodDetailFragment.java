@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FoodDetailFragment extends Fragment implements View.OnClickListener{
+public class FoodDetailFragment extends BaseFragment implements View.OnClickListener{
     @Bind(R.id.brandNameTextView) TextView mBrandNameTextView;
     @Bind(R.id.foodNameTextView) TextView mFoodNameTextView;
     @Bind(R.id.caloriesTextView) TextView mCaloriesTextView;
@@ -72,7 +72,8 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_food_detail, container, false);
         ButterKnife.bind(this, view);
-
+        mBrandNameTextView.setTypeface(myCustomFont);
+        mFoodNameTextView.setTypeface(myCustomFont);
         mBrandNameTextView.setText(mFood.getBrandName());
         mFoodNameTextView.setText(mFood.getItemName());
         mCaloriesTextView.setText("Calories " + mFood.getCalories());

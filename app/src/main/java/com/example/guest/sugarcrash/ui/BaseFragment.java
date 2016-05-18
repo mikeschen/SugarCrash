@@ -2,6 +2,7 @@ package com.example.guest.sugarcrash.ui;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ public class BaseFragment extends Fragment {
     public SharedPreferences mSharedPreferences;
     public SharedPreferences.Editor mSharedPreferencesEditor;
     public Firebase mFirebaseRef;
+    public Typeface myCustomFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,6 @@ public class BaseFragment extends Fragment {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mSharedPreferencesEditor = mSharedPreferences.edit();
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        myCustomFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SpicyRice-Regular.ttf");
     }
 }
