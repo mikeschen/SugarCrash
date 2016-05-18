@@ -27,7 +27,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/brandNameTextView"
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
             <TextView
@@ -50,7 +50,6 @@
                 android:layout_alignTop="@+id/caloriesTextView"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
             <TextView
@@ -61,7 +60,6 @@
                 android:layout_alignTop="@+id/sugarTextView"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
             <TextView
@@ -72,7 +70,7 @@
                 android:layout_below="@+id/foodNameTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="@color/colorLightText"
+                android:textColor="@color/colorAccent"
                 android:textStyle="italic" />
 
             <TextView
@@ -83,7 +81,7 @@
                 android:layout_below="@+id/caloriesTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="@color/colorLightText"
+                android:textColor="@color/colorAccent"
                 android:textStyle="italic" />
 
 
@@ -101,22 +99,26 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/radioGroupLayout"
-                android:paddingLeft="30dp"
+                android:paddingLeft="0dp"
                 android:paddingTop="20dp"
-                android:paddingRight="30dp">
+                android:paddingRight="0dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Select Number of Servings Consumed:"
+                    android:background="#ffffff"
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/servingAmountTextView"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp"
+                    android:gravity="center" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
+                    android:layout_width="217dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/servingsRadioGroup"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
 
                     <RadioButton android:id="@+id/halfRadio"
                         android:layout_width="wrap_content"
@@ -160,7 +162,7 @@
                 android:text="Change Date"
                 android:id="@+id/datePickerButton"
                 android:background="@color/colorAccent"
-                android:textColor="@color/colorLightText"
+                android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"
                 android:padding="10dp"
                 android:layout_centerVertical="true"
@@ -173,7 +175,7 @@
                 android:id="@+id/saveFoodButton"
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorAccent"
-                android:textColor="@color/colorLightText"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
         </RelativeLayout>
     </LinearLayout>

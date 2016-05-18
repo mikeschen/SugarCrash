@@ -42,13 +42,16 @@
                 android:text="Calories"
                 android:id="@+id/sugarTextView"
                 android:textColor="@color/colorAccent"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Serving Size"
-                android:id="@+id/servingSizeTextView"
-                android:textColor="@color/colorAccent" />
+                android:text="Sugar Content"
+                android:id="@+id/sugarContentTextView"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -58,14 +61,13 @@
             android:background="#ffffff"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sugar Content"
-                android:id="@+id/sugarContentTextView"
-                android:textStyle="italic"
+                android:text="Serving Size"
+                android:id="@+id/servingSizeTextView"
                 android:layout_gravity="right"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
