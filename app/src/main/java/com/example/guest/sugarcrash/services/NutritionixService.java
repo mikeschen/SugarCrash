@@ -78,6 +78,7 @@ public class NutritionixService {
 
         try {
             String jsonData = response.body().string();
+            Log.d("jsondate", jsonData);
             if(response.isSuccessful()) {
                 JSONObject foodsJSON = new JSONObject(jsonData);
                 String itemId = foodsJSON.getString("item_id");
@@ -99,6 +100,9 @@ public class NutritionixService {
                 double protein = foodsJSON.optDouble("nf_protein", 0);
                 Food food = new Food(itemId, itemName, brandName, itemDescription, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol, sodium, sugars, servingsPerContainer, servingSizeQuantity, servingSizeUnit, servingWeightGrams, protein);
                 foods.add(food);
+            }
+            else {
+                Log.d("Food not found", "Garrroidd");
             }
         }catch (IOException e) {
             e.printStackTrace();

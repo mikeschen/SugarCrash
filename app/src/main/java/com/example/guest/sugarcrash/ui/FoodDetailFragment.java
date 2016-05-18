@@ -176,6 +176,8 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
         newSavedFood.setPushId(savedFoodPushId);
         pushRef.setValue(newSavedFood);
         Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), MainActivity.class);
+        getActivity().startActivity(intent);
     }
-
 }
