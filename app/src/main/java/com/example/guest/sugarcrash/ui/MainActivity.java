@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt("Scan a food barcode");
         integrator.setCameraId(0);
-        //integrator.setBeepEnabled(true);
+        integrator.setBeepEnabled(true);
         integrator.initiateScan();
     }
 
