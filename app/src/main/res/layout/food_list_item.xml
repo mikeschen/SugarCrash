@@ -41,12 +41,14 @@
                 android:layout_height="wrap_content"
                 android:text="Calories"
                 android:id="@+id/sugarTextView"
+                android:textSize="@dimen/nutrition_font_size"
                 android:textColor="@color/colorAccent"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sugar Content"
                 android:id="@+id/sugarContentTextView"
+                android:textSize="@dimen/nutrition_font_size"
                 android:textStyle="italic"
                 android:textColor="@color/colorAccent"
                 />
@@ -66,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="Serving Size"
                 android:id="@+id/servingSizeTextView"
+                android:textSize="@dimen/nutrition_font_size"
                 android:layout_gravity="right"/>
 
 
@@ -75,6 +78,7 @@
                 android:text="Servings per Container"
                 android:id="@+id/servingsPerContainerTextView"
                 android:textStyle="italic"
+                android:textSize="@dimen/nutrition_font_size"
                 android:layout_gravity="right" />
 
         </LinearLayout>

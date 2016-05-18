@@ -49,6 +49,7 @@
                 android:id="@+id/servingSizeTextView"
                 android:layout_alignTop="@+id/caloriesTextView"
                 android:layout_alignParentRight="true"
+                android:textSize="@dimen/nutrition_font_size"
                 android:layout_alignParentEnd="true"
                 android:textStyle="bold" />
 
@@ -59,6 +60,7 @@
                 android:id="@+id/servingsPerContainerTextView"
                 android:layout_alignTop="@+id/sugarTextView"
                 android:layout_alignParentRight="true"
+                android:textSize="@dimen/nutrition_font_size"
                 android:layout_alignParentEnd="true"
                 android:textStyle="bold" />
 
@@ -66,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calories"
+                android:textSize="@dimen/nutrition_font_size"
                 android:id="@+id/caloriesTextView"
                 android:layout_below="@+id/foodNameTextView"
                 android:layout_alignParentLeft="true"
@@ -78,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sugar Content"
                 android:id="@+id/sugarTextView"
+                android:textSize="@dimen/nutrition_font_size"
                 android:layout_below="@+id/caloriesTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -110,15 +114,17 @@
                     android:background="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/servingAmountTextView"
-                    android:textSize="17sp"
+                    android:textSize="20sp"
                     android:gravity="center" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="217dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/servingsRadioGroup"
                     android:orientation="horizontal"
-                    android:layout_gravity="center_horizontal">
+                    android:background="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
 
                     <RadioButton android:id="@+id/halfRadio"
                         android:layout_width="wrap_content"
@@ -146,18 +152,20 @@
 
             </LinearLayout>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/currentDateTextView"
                 android:text="@string/dateConsumed"
-                android:textSize="17sp"
+                android:background="#ffffff"
+                android:textSize="20sp"
                 android:layout_marginBottom="34dp"
                 android:layout_above="@+id/datePickerButton"
                 android:gravity="center"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Change Date"
                 android:id="@+id/datePickerButton"
