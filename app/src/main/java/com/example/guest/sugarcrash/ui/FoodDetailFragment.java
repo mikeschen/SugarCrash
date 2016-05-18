@@ -1,13 +1,18 @@
 package com.example.guest.sugarcrash.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
@@ -15,6 +20,10 @@ import com.example.guest.sugarcrash.models.Food;
 
 import org.parceler.Parcels;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +40,10 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.servingSizeTextView) TextView mServingSizeTextView;
     @Bind(R.id.datePickerButton) Button mDatePickerButton;
     @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
+    @Bind(R.id.servingsRadioGroup) RadioGroup mServingsRadioGroup;
+    @Bind(R.id.currentDateTextView) TextView mCurrentDateTextView;
+    private double mNumberOfServings;
+
 
     private Food mFood;
 
@@ -69,7 +82,40 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
 
         mDatePickerButton.setOnClickListener(this);
         mSaveFoodButton.setOnClickListener(this);
+        mServingsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                // Check which radio button was clicked
+                switch(i) {
+                    case R.id.halfRadio:
+                        mNumberOfServings = 0.5;
+                        break;
+                    case R.id.oneRadio:
+                        mNumberOfServings = 1;
+                        break;
+                    case R.id.twoRadio:
+                        mNumberOfServings = 2;
+                        break;
+                    case R.id.threeRadio:
+                        mNumberOfServings = 3;
+                        break;
+                    default:
+                        break;
+                }
+                Log.v("clicked", "" + mNumberOfServings);
+            }
+
+        });
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        String formattedDate = sdf.format(c.getTime());
+        Log.v("calendar time", c.getTime() + "");
+        mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
         return view;
+
+
     }
 
     @Override
@@ -78,7 +124,7 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
             case R.id.saveFoodButton:
                 break;
             case R.id.datePickerButton:
-
+                showDatePickerDialog();
                 break;
             default:
                 break;
@@ -86,5 +132,25 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
 
     }
 
+    public void showDatePickerDialog(){
+        DialogFragment newDateFragment = new DatePickerFragment();
+        newDateFragment.setTargetFragment(this, 222);
+        newDateFragment.show(getFragmentManager(), "timePicker");
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 222){
+            Integer day = data.getIntExtra("new_day", 0);
+            Integer month = data.getIntExtra("new_month", 0);
+            Integer year = data.getIntExtra("new_year", 0);
+            Calendar c = Calendar.getInstance();
+            c.set(year, month, day);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+            String formattedDate = sdf.format(c.getTime());
+            mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
+            Log.v("date", formattedDate);
+        }
+    }
 
 }

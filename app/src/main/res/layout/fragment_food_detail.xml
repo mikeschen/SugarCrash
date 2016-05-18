@@ -115,30 +115,31 @@
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/servingsRadioGroup"
                     android:orientation="horizontal">
+
                     <RadioButton android:id="@+id/halfRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/half"
-                        android:onClick="onRadioButtonClicked"
                         android:layout_marginRight="8dp"/>
+
                     <RadioButton android:id="@+id/oneRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/one"
-                        android:onClick="onRadioButtonClicked"
                         android:layout_marginRight="8dp"/>
+
                     <RadioButton android:id="@+id/twoRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/two"
-                        android:onClick="onRadioButtonClicked"
                         android:layout_marginRight="8dp"/>
+
                     <RadioButton android:id="@+id/threeRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/three"
-                        android:onClick="onRadioButtonClicked"/>
+                        android:text="@string/three"/>
                 </RadioGroup>
 
             </LinearLayout>
@@ -150,6 +151,7 @@
                 android:textSize="17sp"
                 android:layout_marginBottom="34dp"
                 android:layout_above="@+id/datePickerButton"
+                android:gravity="center"
                 android:layout_centerHorizontal="true" />
 
             <Button
