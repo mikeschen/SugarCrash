@@ -73,6 +73,41 @@ public class NutritionixService {
         call.enqueue(callback);
     }
 
+    public ArrayList<Food> processResultsUpc(Response response) {
+        ArrayList<Food> foods = new ArrayList<>();
+
+        try {
+            String jsonData = response.body().string();
+            if(response.isSuccessful()) {
+                JSONObject foodsJSON = new JSONObject(jsonData);
+                String itemId = foodsJSON.getString("item_id");
+                String itemName = foodsJSON.getString("item_name");
+                String brandName = foodsJSON.getString("brand_name");
+                String itemDescription = foodsJSON.getString("item_description");
+                double calories = foodsJSON.getDouble("nf_calories");
+                double totalFat = foodsJSON.getDouble("nf_total_fat");
+                double saturatedFat = foodsJSON.optDouble("nf_saturated_fat", 0);
+                double polyunsaturatedFat = foodsJSON.optDouble("nf_polyunsaturated_fat", 0);
+                double monounsaturatedFat = foodsJSON.optDouble("nf_monounsaturated_fat", 0);
+                double cholesterol = foodsJSON.optDouble("nf_cholesterol", 0);
+                double sodium = foodsJSON.optDouble("nf_sodium", 0);
+                double sugars = foodsJSON.optDouble("nf_sugars", 0);
+                double servingsPerContainer = foodsJSON.optDouble("nf_servings_per_container", 0);
+                double servingSizeQuantity = foodsJSON.optDouble("nf_serving_size_qty", 0);
+                String servingSizeUnit = foodsJSON.getString("nf_serving_size_unit");
+                double servingWeightGrams = foodsJSON.optDouble("nf_serving_weight_grams", 0);
+                double protein = foodsJSON.optDouble("nf_protein", 0);
+                Food food = new Food(itemId, itemName, brandName, itemDescription, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol, sodium, sugars, servingsPerContainer, servingSizeQuantity, servingSizeUnit, servingWeightGrams, protein);
+                foods.add(food);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return foods;
+    }
+
     public ArrayList<Food> processResults(Response response) {
         ArrayList<Food> foods = new ArrayList<>();
 

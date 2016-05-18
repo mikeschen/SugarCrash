@@ -83,14 +83,18 @@ public class SearchResultsActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try{
-                    String jsonData = response.body().string();
-                    if(response.isSuccessful()){
-                        Log.v(TAG, jsonData);
+                mFoods = nutritionixService.processResultsUpc(response);
+
+                SearchResultsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
+                        mSearchResultsRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
+                        mSearchResultsRecyclerView.setLayoutManager(layoutManager);
+                        mSearchResultsRecyclerView.setHasFixedSize(true);
                     }
-                } catch(IOException e){
-                    e.printStackTrace();
-                }
+                });
             }
         });
     }
