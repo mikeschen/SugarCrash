@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
@@ -34,6 +36,9 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.servingSizeTextView) TextView mServingSizeTextView;
     @Bind(R.id.datePickerButton) Button mDatePickerButton;
     @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
+    @Bind(R.id.servingsRadioGroup) RadioGroup mServingsRadioGroup;
+    private double mNumberOfServings;
+
 
     private Food mFood;
 
@@ -72,6 +77,31 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
 
         mDatePickerButton.setOnClickListener(this);
         mSaveFoodButton.setOnClickListener(this);
+        mServingsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                // Check which radio button was clicked
+                switch(i) {
+                    case R.id.halfRadio:
+                        mNumberOfServings = 0.5;
+                        break;
+                    case R.id.oneRadio:
+                        mNumberOfServings = 1;
+                        break;
+                    case R.id.twoRadio:
+                        mNumberOfServings = 2;
+                        break;
+                    case R.id.threeRadio:
+                        mNumberOfServings = 3;
+                        break;
+                    default:
+                        break;
+                }
+                Log.v("clicked", "" + mNumberOfServings);
+            }
+
+        });
         return view;
     }
 

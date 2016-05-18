@@ -22,7 +22,6 @@ public class FoodDetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
     private FoodPagerAdapter adapterViewPager;
     ArrayList<Food> mFoods = new ArrayList<>();
-    private double mNumberOfServings;
 
 
 
@@ -38,31 +37,5 @@ public class FoodDetailActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(startingPosition);
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.halfRadio:
-                if (checked)
-                    mNumberOfServings = 0.5;
-                break;
-            case R.id.oneRadio:
-                if (checked)
-                    mNumberOfServings = 1;
-                break;
-            case R.id.twoRadio:
-                if (checked)
-                    mNumberOfServings = 2;
-                break;
-            case R.id.threeRadio:
-                if (checked)
-                    mNumberOfServings = 3;
-                break;
-            default:
-                break;
-        }
-        Log.v("clicked", "" + mNumberOfServings);
-    }
 }
