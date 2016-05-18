@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,7 @@ import com.example.guest.sugarcrash.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
+import com.firebase.client.core.Context;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.firebase.client.FirebaseError;
@@ -42,8 +44,11 @@ import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -75,7 +80,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         setUpFirebaseQuery();
 
-        Log.d("muid", mUserRef + "");
         mWelcomeTextView.setTypeface(myCustomFont);
         mSearchButton.setTypeface(myCustomFont);
         mMaxDaily.setTypeface(myCustomFont);
@@ -110,6 +114,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void setUpBarChart(){
+
+
         BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
         mBarChart.addBar(new BarModel("Sun", (float) x, 0xFF123456));
         mBarChart.addBar(new BarModel("Mon", 8,  0xFF21166a));
@@ -134,8 +140,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void setUpFirebaseQuery() {
         String location = mFirebaseSavedFoodRef.toString();
         mQuery = new Firebase(location).child(mUId);
-        mFoodDataMap = new HashMap<>();
-        Log.d("FIREBASS", location);
+        mFoodDataMap = new TreeMap<>();
         mSavedFoodListener = mQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
