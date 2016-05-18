@@ -1,22 +1,12 @@
 package com.example.guest.sugarcrash.ui;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.media.Image;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
+
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,8 +34,6 @@ import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -67,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private double x = 16.7;
     private int mOrientation;
     private Map<Integer, ArrayList> mFoodDataMap;
+    private int[] mColorArray = {0xFF123456, 0xFF21166a, 0xFF563456, 0xFF873F56, 0xFF56B7F1, 0xFF343456, 0xFF1F04AC};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mMaxDaily.setTypeface(myCustomFont);
         mUpcButton.setTypeface(myCustomFont);
 
-        setUpBarChart();
-        setUpPieChart();
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,22 +101,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void setUpBarChart(){
-
-
+        Set dataDays = mFoodDataMap.keySet();
         BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
-        mBarChart.addBar(new BarModel("Sun", (float) x, 0xFF123456));
-        mBarChart.addBar(new BarModel("Mon", 8,  0xFF21166a));
-        mBarChart.addBar(new BarModel("Tue", 3, 0xFF563456));
-        mBarChart.addBar(new BarModel("Wed", 28, 0xFF873F56));
-        mBarChart.addBar(new BarModel("Thur", 40, 0xFF56B7F1));
-        mBarChart.addBar(new BarModel("Fri", 10,  0xFF343456));
-        mBarChart.addBar(new BarModel("Sat", 4, 0xFF1F04AC));
+        mBarChart.clearChart();
+        for(int i = 7; i > 0 ; i--){
+            int position = dataDays.size() - i;
+            Integer today = (Integer) dataDays.toArray()[position];
+            if(today != null && today >= 0){
+                ArrayList<SavedFood> todaysFoods = mFoodDataMap.get(today);
+                double summedSugars = 0;
+                for(SavedFood thisFood : todaysFoods){
+                    summedSugars += thisFood.getSugars();
+                }
+                mBarChart.addBar(new BarModel(today.toString(), (float) summedSugars,  mColorArray[i-1]));
+            }
+        }
 
         mBarChart.startAnimation();
     }
 
     private void setUpPieChart(){
         PieChart mPieChart = (PieChart) findViewById(R.id.piechart);
+        mPieChart.clearChart();
 
         mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
         mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
@@ -154,6 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     mFoodDataMap.put(eatenDate, dbFoods);
                 }
                 Log.v("array keys", mFoodDataMap.keySet() + "");
+                setUpBarChart();
+                setUpPieChart();
             }
 
             @Override
