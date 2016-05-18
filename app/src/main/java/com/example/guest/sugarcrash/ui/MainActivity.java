@@ -34,6 +34,8 @@ import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -104,16 +106,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Set dataDays = mFoodDataMap.keySet();
         BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
         mBarChart.clearChart();
+        Calendar c = Calendar.getInstance();
         for(int i = 7; i > 0 ; i--){
             int position = dataDays.size() - i;
             Integer today = (Integer) dataDays.toArray()[position];
             if(today != null && today >= 0){
                 ArrayList<SavedFood> todaysFoods = mFoodDataMap.get(today);
+                Integer year = Integer.parseInt(today.toString().substring(0, 4));
+                Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
+                Integer day = Integer.parseInt(today.toString().substring(6));
+                Log.v("date", year + " " + month + " " + day);
+                c.set(year, month, day);
                 double summedSugars = 0;
                 for(SavedFood thisFood : todaysFoods){
                     summedSugars += thisFood.getSugars();
                 }
-                mBarChart.addBar(new BarModel(today.toString(), (float) summedSugars,  mColorArray[i-1]));
+                mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()), (float) summedSugars,  mColorArray[i-1]));
             }
         }
 
