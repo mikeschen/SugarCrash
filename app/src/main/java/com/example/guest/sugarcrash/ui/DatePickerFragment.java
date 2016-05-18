@@ -3,6 +3,7 @@ package com.example.guest.sugarcrash.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +43,15 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day){
         Log.v("date set", "year: " + year + " month: " + month + "day" + day);
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, day);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String formattedDate = sdf.format(c.getTime());
+        Intent intent = new Intent();
+        intent.putExtra("new_date", formattedDate);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), 222, intent);
+
     }
 
 }

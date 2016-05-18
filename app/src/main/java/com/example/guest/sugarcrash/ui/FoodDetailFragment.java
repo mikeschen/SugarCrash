@@ -1,6 +1,7 @@
 package com.example.guest.sugarcrash.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.guest.sugarcrash.R;
@@ -89,8 +91,15 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
 
     public void showDatePickerDialog(){
         DialogFragment newDateFragment = new DatePickerFragment();
-        newDateFragment.show(getChildFragmentManager(), "timePicker");
+        newDateFragment.setTargetFragment(this, 222);
+        newDateFragment.show(getFragmentManager(), "timePicker");
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 222){
+            String date = data.getStringExtra("new_date");
+            Log.v("date", date);
+        }
+    }
 
 }
