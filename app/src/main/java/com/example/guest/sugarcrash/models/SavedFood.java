@@ -8,17 +8,16 @@ public class SavedFood {
     String itemName;
     String brandName;
     double sugars;
-    String date;
+    int date;
     String pushId;
 
     public SavedFood() {}
 
-    public SavedFood(String itemName, String brandName, double sugars, String date) {
+    public SavedFood(String itemName, String brandName, double sugars, int date) {
         this.itemName = itemName;
         this.brandName = brandName;
         this.sugars = sugars;
         this.date = date;
-        this.pushId = pushId;
     }
 
 
@@ -35,7 +34,7 @@ public class SavedFood {
         return sugars;
     }
 
-    public String getDate() {
+    public int getDate() {
         return date;
     }
 

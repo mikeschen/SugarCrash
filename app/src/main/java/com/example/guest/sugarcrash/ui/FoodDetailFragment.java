@@ -41,9 +41,10 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.datePickerButton) Button mDatePickerButton;
     @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
     @Bind(R.id.servingsRadioGroup) RadioGroup mServingsRadioGroup;
+    @Bind(R.id.oneRadio) RadioButton mOneRadio;
     @Bind(R.id.currentDateTextView) TextView mCurrentDateTextView;
     private double mNumberOfServings;
-
+    private int mSelectedDate;
 
     private Food mFood;
 
@@ -85,29 +86,29 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
         mServingsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
-                // Check which radio button was clicked
-                switch(i) {
-                    case R.id.halfRadio:
-                        mNumberOfServings = 0.5;
-                        break;
-                    case R.id.oneRadio:
-                        mNumberOfServings = 1;
-                        break;
-                    case R.id.twoRadio:
-                        mNumberOfServings = 2;
-                        break;
-                    case R.id.threeRadio:
-                        mNumberOfServings = 3;
-                        break;
-                    default:
-                        break;
-                }
-                Log.v("clicked", "" + mNumberOfServings);
+            // Check which radio button was clicked
+            switch(i) {
+                case R.id.halfRadio:
+                    mNumberOfServings = 0.5;
+                    break;
+                case R.id.oneRadio:
+                    mNumberOfServings = 1;
+                    break;
+                case R.id.twoRadio:
+                    mNumberOfServings = 2;
+                    break;
+                case R.id.threeRadio:
+                    mNumberOfServings = 3;
+                    break;
+                default:
+                    break;
+            }
+            Log.v("clicked", "" + mNumberOfServings);
             }
 
         });
 
+        mOneRadio.setChecked(true);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
         String formattedDate = sdf.format(c.getTime());
