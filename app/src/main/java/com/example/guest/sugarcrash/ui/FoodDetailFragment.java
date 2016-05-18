@@ -14,9 +14,13 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.guest.sugarcrash.Constants;
 import com.example.guest.sugarcrash.R;
 import com.example.guest.sugarcrash.models.Food;
+import com.example.guest.sugarcrash.models.SavedFood;
+import com.firebase.client.Firebase;
 
 import org.parceler.Parcels;
 
@@ -41,9 +45,12 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
     @Bind(R.id.datePickerButton) Button mDatePickerButton;
     @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
     @Bind(R.id.servingsRadioGroup) RadioGroup mServingsRadioGroup;
+    @Bind(R.id.oneRadio) RadioButton mOneRadio;
     @Bind(R.id.currentDateTextView) TextView mCurrentDateTextView;
     private double mNumberOfServings;
-
+    private int mSelectedDate;
+    private SimpleDateFormat mDatabaseDateFormatter;
+    private SimpleDateFormat sdf;
 
     private Food mFood;
 
@@ -86,32 +93,34 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
         mServingsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
-                // Check which radio button was clicked
-                switch(i) {
-                    case R.id.halfRadio:
-                        mNumberOfServings = 0.5;
-                        break;
-                    case R.id.oneRadio:
-                        mNumberOfServings = 1;
-                        break;
-                    case R.id.twoRadio:
-                        mNumberOfServings = 2;
-                        break;
-                    case R.id.threeRadio:
-                        mNumberOfServings = 3;
-                        break;
-                    default:
-                        break;
-                }
-                Log.v("clicked", "" + mNumberOfServings);
+            // Check which radio button was clicked
+            switch(i) {
+                case R.id.halfRadio:
+                    mNumberOfServings = 0.5;
+                    break;
+                case R.id.oneRadio:
+                    mNumberOfServings = 1;
+                    break;
+                case R.id.twoRadio:
+                    mNumberOfServings = 2;
+                    break;
+                case R.id.threeRadio:
+                    mNumberOfServings = 3;
+                    break;
+                default:
+                    break;
+            }
+            Log.v("clicked", "" + mNumberOfServings);
             }
 
         });
 
+        mOneRadio.setChecked(true);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
         String formattedDate = sdf.format(c.getTime());
+        mDatabaseDateFormatter = new SimpleDateFormat("yyyyMMdd");
+        mSelectedDate = Integer.parseInt(mDatabaseDateFormatter.format(c.getTime()));
         Log.v("calendar time", c.getTime() + "");
         mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
         return view;
@@ -123,6 +132,7 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
     public void onClick(View view){
         switch(view.getId()){
             case R.id.saveFoodButton:
+                saveThisFood();
                 break;
             case R.id.datePickerButton:
                 showDatePickerDialog();
@@ -146,12 +156,26 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
             Integer year = data.getIntExtra("new_year", 0);
             Calendar c = Calendar.getInstance();
             c.set(year, month, day);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+            mSelectedDate = Integer.parseInt(mDatabaseDateFormatter.format(c.getTime()));
             String formattedDate = sdf.format(c.getTime());
             mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
-            Log.v("date", formattedDate);
+            Log.v("date", mSelectedDate + "");
         }
+    }
+
+    public void saveThisFood(){
+        String itemName = mFood.getItemName();
+        String brandName = mFood.getBrandName();
+        double sugars = mFood.getSugars();
+        double mySugars = sugars * mNumberOfServings;
+        SavedFood newSavedFood = new SavedFood(itemName, brandName, mySugars, mSelectedDate);
+
+        Firebase userDateSavedFoodRef = new Firebase(Constants.FIREBASE_URL_SAVEDFOOD).child(mUId).child(mSelectedDate + "");
+        Firebase pushRef = userDateSavedFoodRef.push();
+        String savedFoodPushId = pushRef.getKey();
+        newSavedFood.setPushId(savedFoodPushId);
+        pushRef.setValue(newSavedFood);
+        Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
     }
 
 }
