@@ -1,5 +1,6 @@
 package com.example.guest.sugarcrash.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import com.example.guest.sugarcrash.R;
@@ -28,6 +29,7 @@ public class SearchResultsActivity extends BaseActivity {
     private FoodListAdapter mAdapter;
     private String mSearchString;
     private String mSearchType;
+    private ProgressDialog mAuthProgressDialog;
 
     public ArrayList<Food> mFoods = new ArrayList<>();
 
@@ -36,7 +38,11 @@ public class SearchResultsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Searching for food items...");
+        mAuthProgressDialog.setCancelable(false);
+    Intent intent = getIntent();
         mSearchString = intent.getStringExtra("inputText");
         mSearchType = mSharedPreferences.getString(Constants.PREFERENCES_SEARCH_TYPE_KEY, null);
         if(mSearchType != null && mSearchType.equals("string")){
@@ -45,6 +51,7 @@ public class SearchResultsActivity extends BaseActivity {
             Log.v(TAG, mSearchString + " " + mSearchType);
             searchDatabaseByUpc();
         }
+        mAuthProgressDialog.show();
     }
 
     private void searchDatabaseByTerm(){
@@ -62,11 +69,15 @@ public class SearchResultsActivity extends BaseActivity {
                 SearchResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        //if (foods == null)
+                        //mAuthProgressDialog.dismiss();
+                        //else
                         mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
                         mSearchResultsRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
                         mSearchResultsRecyclerView.setLayoutManager(layoutManager);
                         mSearchResultsRecyclerView.setHasFixedSize(true);
+                        mAuthProgressDialog.dismiss();
                     }
                 });
             }
