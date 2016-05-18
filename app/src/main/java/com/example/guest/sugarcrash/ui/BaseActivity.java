@@ -15,6 +15,7 @@ public class BaseActivity extends AppCompatActivity {
     public SharedPreferences.Editor mSharedPreferencesEditor;
     public Firebase mFirebaseRef;
     public Typeface myCustomFont;
+    public String mUId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
         mSharedPreferencesEditor = mSharedPreferences.edit();
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/SpicyRice-Regular.ttf");
+        mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
     }
 
     public void addSearchTypeToSharedPreferences(String searchType){

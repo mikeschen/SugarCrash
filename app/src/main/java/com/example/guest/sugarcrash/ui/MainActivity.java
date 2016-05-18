@@ -44,9 +44,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, SearchDialogFragment.SearchDialogFragmentListener {
-    private static final int REQUEST_IMAGE_CAPTURE = 111;
-    private ImageView mImageView;
-    private Bitmap mImageBitmap;
+
     @Bind(R.id.searchButton) Button mSearchButton;
     @Bind(R.id.upcButton) Button mUpcButton;
     @Bind(R.id.maxDaily) TextView mMaxDaily;
@@ -54,7 +52,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private Firebase mUserRef;
     private Query mQuery;
     private Firebase mFirebaseSavedFoodRef;
-    private String mUId;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
     private double x = 16.7;
     private int mOrientation;
@@ -66,7 +63,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ButterKnife.bind(this);
         mSearchButton.setOnClickListener(this);
         mUpcButton.setOnClickListener(this);
-        mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
         mFirebaseSavedFoodRef = new Firebase(Constants.FIREBASE_URL_SAVEDFOOD);
 
