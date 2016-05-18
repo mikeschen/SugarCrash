@@ -21,6 +21,10 @@ import com.example.guest.sugarcrash.models.Food;
 import org.parceler.Parcels;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -37,6 +41,7 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.datePickerButton) Button mDatePickerButton;
     @Bind(R.id.saveFoodButton) Button mSaveFoodButton;
     @Bind(R.id.servingsRadioGroup) RadioGroup mServingsRadioGroup;
+    @Bind(R.id.currentDateTextView) TextView mCurrentDateTextView;
     private double mNumberOfServings;
 
 
@@ -102,7 +107,14 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
             }
 
         });
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        String formattedDate = sdf.format(c.getTime());
+        mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
         return view;
+
+
     }
 
     @Override
@@ -128,6 +140,7 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 222){
             String date = data.getStringExtra("new_date");
+            mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + date);
             Log.v("date", date);
         }
     }
