@@ -2,7 +2,8 @@ package com.example.guest.sugarcrash.ui;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,12 +79,17 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
             case R.id.saveFoodButton:
                 break;
             case R.id.datePickerButton:
-
+                showDatePickerDialog();
                 break;
             default:
                 break;
         }
 
+    }
+
+    public void showDatePickerDialog(){
+        DialogFragment newDateFragment = new DatePickerFragment();
+        newDateFragment.show(getChildFragmentManager(), "timePicker");
     }
 
 
