@@ -29,6 +29,8 @@ public class Constants {
     public static final String FIREBASE_PROPERTY_EMAIL = "email";
     public static final String KEY_UID = "UID";
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USERS;
+    public static final String FIREBASE_LOCATION_SAVEDFOOD = "savedFood";
+    public static final String FIREBASE_URL_SAVEDFOOD = FIREBASE_URL + "/" + FIREBASE_LOCATION_SAVEDFOOD;
 
     public static final String PREFERENCES_SEARCH_TYPE_KEY = "searchType";
     public static final String KEY_USER_EMAIL = "email";

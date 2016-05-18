@@ -29,6 +29,7 @@ import com.example.guest.sugarcrash.R;
 import com.example.guest.sugarcrash.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.Query;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.firebase.client.FirebaseError;
@@ -51,6 +52,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Bind(R.id.maxDaily) TextView mMaxDaily;
     private ValueEventListener mUserRefListener;
     private Firebase mUserRef;
+    private Query mQuery;
+    private Firebase mFirebaseSavedFoodRef;
     private String mUId;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
     private double x = 16.7;
@@ -65,13 +68,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mUpcButton.setOnClickListener(this);
         mUId = mSharedPreferences.getString(Constants.KEY_UID, null);
         mUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mUId);
+        mFirebaseSavedFoodRef = new Firebase(Constants.FIREBASE_URL_SAVEDFOOD);
+
+        setUpFirebaseQuery();
+
         Log.d("muid", mUserRef + "");
         mWelcomeTextView.setTypeface(myCustomFont);
         mSearchButton.setTypeface(myCustomFont);
         mMaxDaily.setTypeface(myCustomFont);
         mUpcButton.setTypeface(myCustomFont);
-        BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
 
+        BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
         mBarChart.addBar(new BarModel("Sun", (float) x, 0xFF123456));
         mBarChart.addBar(new BarModel("Mon", 8,  0xFF21166a));
         mBarChart.addBar(new BarModel("Tue", 3, 0xFF563456));
@@ -86,8 +93,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
         mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
-
-
 
         mPieChart.startAnimation();
 
@@ -117,8 +122,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-
-
+    private void setUpFirebaseQuery() {
+        String location = mFirebaseSavedFoodRef.toString();
+        mQuery = new Firebase(location);
+        Log.d("FIREBASS", location);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
