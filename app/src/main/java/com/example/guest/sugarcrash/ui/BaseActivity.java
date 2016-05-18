@@ -23,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
         mSharedPreferencesEditor = mSharedPreferences.edit();
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/SpicyRice-Regular.ttf");
-
     }
 
     public void addSearchTypeToSharedPreferences(String searchType){
