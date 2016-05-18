@@ -1,21 +1,12 @@
 package com.example.guest.sugarcrash.ui;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
+
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,10 +17,12 @@ import android.widget.TextView;
 
 import com.example.guest.sugarcrash.Constants;
 import com.example.guest.sugarcrash.R;
+import com.example.guest.sugarcrash.models.SavedFood;
 import com.example.guest.sugarcrash.models.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
+import com.firebase.client.core.Context;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.firebase.client.FirebaseError;
@@ -40,6 +33,13 @@ import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -49,12 +49,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Bind(R.id.upcButton) Button mUpcButton;
     @Bind(R.id.maxDaily) TextView mMaxDaily;
     private ValueEventListener mUserRefListener;
+    private ValueEventListener mSavedFoodListener;
     private Firebase mUserRef;
     private Query mQuery;
     private Firebase mFirebaseSavedFoodRef;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
     private double x = 16.7;
     private int mOrientation;
+    private Map<Integer, ArrayList> mFoodDataMap;
+    private int[] mColorArray = {0xFF123456, 0xFF21166a, 0xFF563456, 0xFF873F56, 0xFF56B7F1, 0xFF343456, 0xFF1F04AC};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,29 +71,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         setUpFirebaseQuery();
 
-        Log.d("muid", mUserRef + "");
         mWelcomeTextView.setTypeface(myCustomFont);
         mSearchButton.setTypeface(myCustomFont);
         mMaxDaily.setTypeface(myCustomFont);
         mUpcButton.setTypeface(myCustomFont);
-
-        BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
-        mBarChart.addBar(new BarModel("Sun", (float) x, 0xFF123456));
-        mBarChart.addBar(new BarModel("Mon", 8,  0xFF21166a));
-        mBarChart.addBar(new BarModel("Tue", 3, 0xFF563456));
-        mBarChart.addBar(new BarModel("Wed", 28, 0xFF873F56));
-        mBarChart.addBar(new BarModel("Thur", 40, 0xFF56B7F1));
-        mBarChart.addBar(new BarModel("Fri", 10,  0xFF343456));
-        mBarChart.addBar(new BarModel("Sat", 4, 0xFF1F04AC));
-
-        mBarChart.startAnimation();
-
-        PieChart mPieChart = (PieChart) findViewById(R.id.piechart);
-
-        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
-        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
-
-        mPieChart.startAnimation();
 
 
         mUserRefListener = mUserRef.addValueEventListener(new ValueEventListener() {
@@ -118,29 +102,70 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
+    private void setUpBarChart(){
+        Set dataDays = mFoodDataMap.keySet();
+        BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
+        mBarChart.clearChart();
+        Calendar c = Calendar.getInstance();
+        for(int i = 7; i > 0 ; i--){
+            int position = dataDays.size() - i;
+            Integer today = (Integer) dataDays.toArray()[position];
+            if(today != null && today >= 0){
+                ArrayList<SavedFood> todaysFoods = mFoodDataMap.get(today);
+                Integer year = Integer.parseInt(today.toString().substring(0, 4));
+                Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
+                Integer day = Integer.parseInt(today.toString().substring(6));
+                Log.v("date", year + " " + month + " " + day);
+                c.set(year, month, day);
+                double summedSugars = 0;
+                for(SavedFood thisFood : todaysFoods){
+                    summedSugars += thisFood.getSugars();
+                }
+                mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()), (float) summedSugars,  mColorArray[i-1]));
+            }
+        }
+
+        mBarChart.startAnimation();
+    }
+
+    private void setUpPieChart(){
+        PieChart mPieChart = (PieChart) findViewById(R.id.piechart);
+        mPieChart.clearChart();
+
+        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
+        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
+
+        mPieChart.startAnimation();
+    }
+
     private void setUpFirebaseQuery() {
         String location = mFirebaseSavedFoodRef.toString();
-        mQuery = new Firebase(location);
-        Log.d("FIREBASS", location);
+        mQuery = new Firebase(location).child(mUId);
+        mFoodDataMap = new TreeMap<>();
+        mSavedFoodListener = mQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot daySnapshot: dataSnapshot.getChildren()){
+                    Integer eatenDate = Integer.parseInt(daySnapshot.getKey());
+                    ArrayList<SavedFood> dbFoods = new ArrayList<>();
+                    for (DataSnapshot foodSnapshot: daySnapshot.getChildren()){
+                        SavedFood dbFood = foodSnapshot.getValue(SavedFood.class);
+                        dbFoods.add(dbFood);
+                    }
+                    mFoodDataMap.put(eatenDate, dbFoods);
+                }
+                Log.v("array keys", mFoodDataMap.keySet() + "");
+                setUpBarChart();
+                setUpPieChart();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d("saved data", "Read failed");
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_photo, menu);
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                logout();
-                return true;
-        }
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
@@ -194,14 +219,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             toast.show();
         }
     }
-    protected void logout() {
-        mFirebaseRef.unauth();
-        takeUserToLoginScreenOnUnAuth();
-    }
-    private void takeUserToLoginScreenOnUnAuth() {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
+
 }
