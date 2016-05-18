@@ -111,6 +111,7 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
         String formattedDate = sdf.format(c.getTime());
+        Log.v("calendar time", c.getTime() + "");
         mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
         return view;
 
@@ -139,9 +140,16 @@ public class FoodDetailFragment extends Fragment implements View.OnClickListener
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 222){
-            String date = data.getStringExtra("new_date");
-            mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + date);
-            Log.v("date", date);
+            Integer day = data.getIntExtra("new_day", 0);
+            Integer month = data.getIntExtra("new_month", 0);
+            Integer year = data.getIntExtra("new_year", 0);
+            Calendar c = Calendar.getInstance();
+            c.set(year, month, day);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+            String formattedDate = sdf.format(c.getTime());
+            mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
+            Log.v("date", formattedDate);
         }
     }
 

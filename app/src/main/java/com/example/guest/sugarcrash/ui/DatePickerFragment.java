@@ -42,14 +42,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day){
-        Log.v("date set", "year: " + year + " month: " + month + "day" + day);
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, day);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        String formattedDate = sdf.format(c.getTime());
         Intent intent = new Intent();
-        intent.putExtra("new_date", formattedDate);
+        intent.putExtra("new_day", day);
+        intent.putExtra("new_month", month);
+        intent.putExtra("new_year", year);
         getTargetFragment().onActivityResult(getTargetRequestCode(), 222, intent);
 
     }
