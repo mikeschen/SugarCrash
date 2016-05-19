@@ -69,9 +69,11 @@
         android:layout_height="180dp"
         android:layout_below="@+id/barchart"
         android:padding="8dp"
-        app:egLegendTextSize="18sp"
+        app:egLegendTextSize="16sp"
         app:egUsePieRotation="true"
-        app:egValueTextSize="36sp"
+        app:egValueTextSize="31sp"
+        app:egAutoCenter="true"
+        app:egInnerValueUnit="g"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -82,7 +84,7 @@
         android:layout_below="@+id/piechart"
         android:id="@+id/maxDaily"
         android:textColor="#000000"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center" />
 
 </RelativeLayout>
