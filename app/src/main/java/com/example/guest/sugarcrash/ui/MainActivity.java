@@ -43,7 +43,7 @@ import java.util.TreeMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, SearchDialogFragment.SearchDialogFragmentListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.searchButton) Button mSearchButton;
     @Bind(R.id.upcButton) Button mUpcButton;
@@ -182,43 +182,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void showFoodSearchDialog(){
-        FragmentManager fm = getSupportFragmentManager();
-        SearchDialogFragment searchFragment = SearchDialogFragment.newInstance("Input Search Term");
-        searchFragment.setStyle(SearchDialogFragment.STYLE_NORMAL, R.style.CustomDialog);
-        searchFragment.show(fm, "fragment_search_dialog");
-    }
-
-    @Override
-    public void onFinishEditDialog(String inputText) {
-        addSearchTypeToSharedPreferences("string");
-        Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
-        intent.putExtra("inputText", inputText);
-        startActivity(intent);
-    }
-
-    public void scanUPC(){
-        addSearchTypeToSharedPreferences("upc");
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scan a food barcode");
-        integrator.setCameraId(0);
-        integrator.setBeepEnabled(true);
-        integrator.initiateScan();
-
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent intent){
-        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if(scanningResult != null && resultCode==RESULT_OK){
-            String scanContent = scanningResult.getContents();
-            Intent searchIntent = new Intent(MainActivity.this, SearchResultsActivity.class);
-            searchIntent.putExtra("inputText", scanContent);
-            startActivity(searchIntent);
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),"No scan data received!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
 
 }

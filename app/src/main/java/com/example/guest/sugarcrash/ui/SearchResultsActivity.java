@@ -49,7 +49,6 @@ public class SearchResultsActivity extends BaseActivity {
         if(mSearchType != null && mSearchType.equals("string")){
             searchDatabaseByTerm();
         } else if(mSearchType != null && mSearchType.equals("upc") && mSearchString != null){
-            Log.v(TAG, mSearchString + " " + mSearchType);
             searchDatabaseByUpc();
         }
         mAuthProgressDialog.show();
