@@ -92,7 +92,7 @@
             android:layout_margin="2dp"
             android:inputType="number"
             android:ems="10"
-            android:hint="Enter Age"
+            android:hint="Enter Birth Year"
             android:textColorHint="@color/colorTextIcons"
             android:textSize="20sp"/>
 

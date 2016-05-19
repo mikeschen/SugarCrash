@@ -31,8 +31,10 @@
         </activity>
         <activity android:name=".ui.BaseActivity" />
         <activity android:name=".ui.FoodDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.sugarcrash.ui.MainActivity" />
 
         </activity>
     </application>
-
 </manifest>

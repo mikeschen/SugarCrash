@@ -1,5 +1,7 @@
 package com.example.guest.sugarcrash.models;
 
+import java.util.Calendar;
+
 /**
  * Created by Guest on 5/16/16.
  */
@@ -30,5 +32,10 @@ public class User {
     public int getBirthYear() { return birthYear; }
 
     public String getSex() { return sex; }
+
+    int year = Calendar.getInstance().get(Calendar.YEAR);
+    public int findAge() {
+        return (year - birthYear);
+    }
 }
 

@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
     private int mOrientation;
     private Map<Integer, ArrayList> mFoodDataMap;
-    private int[] mColorArray = {0xFF123456, 0xFF21166a, 0xFF563456, 0xFF873F56, 0xFF56B7F1, 0xFF343456, 0xFF1F04AC};
+    private int[] mColorArray = {0xFF681dc0, 0xFF44bfeb, 0xFFf5b61a, 0xFF60b017, 0xFFeb5da7, 0xFFed393b, 0xFF10a8f1};
     @Bind(R.id.barchart) BarChart mBarChart;
     @Bind(R.id.piechart) PieChart mPieChart;
     private int mSelectedBar;
@@ -84,12 +84,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                mWelcomeTextView.setText(user.getName());
+                mWelcomeTextView.setText(user.getName() + "'s Sugar");
+                String userSex = user.getSex();
+                if (user.findAge() <= 4 ) {
+                    mMaxDaily.setText("Recommended Daily Sugar: 12.5g");
+                }
+                else if (user.findAge() <= 8){
+                    mMaxDaily.setText("Recommended Daily Sugar: 16.7g");
+                }
+                else if (user.findAge() <= 12) {
+                    mMaxDaily.setText("Recommended Daily Sugar: 21g");
+                }
+                else if (user.findAge() <= 16 ) {
+                    mMaxDaily.setText("Recommended Daily Sugar: 25g");
+                }
+                else if (userSex.equals("male")) {
+                    mMaxDaily.setText("Recommended Daily Sugar: 37.5g");
+                }
+                else {
+                    mMaxDaily.setText("Recommended Daily Sugar: 25g");
+                }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d("Login", "Read failed");
+
             }
         });
 
@@ -107,7 +126,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBarChart.setOnBarClickedListener(new IOnBarClickedListener() {
             @Override
             public void onBarClicked(int _Position) {
-                Log.d("barchart", "Position: " + _Position);
                 mSelectedBar = _Position;
                 setUpPieChart();
             }
@@ -135,7 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 for(SavedFood thisFood : todaysFoods){
                     summedSugars += thisFood.getSugars();
                 }
-                Log.v("date to string", c.toString());
                 mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) + "-" + c.get(Calendar.DATE), (float) summedSugars,  mColorArray[i-1]));
             }
         }
@@ -187,14 +204,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                     mFoodDataMap.put(eatenDate, dbFoods);
                 }
-                Log.v("array keys", mFoodDataMap.keySet() + "");
                 setUpBarChart();
                 setUpPieChart();
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d("saved data", "Read failed");
+
             }
         });
     }
@@ -214,6 +230,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
     }
-
-
 }
