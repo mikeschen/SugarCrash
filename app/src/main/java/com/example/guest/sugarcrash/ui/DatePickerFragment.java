@@ -37,8 +37,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+        return datePicker;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day){
@@ -47,7 +48,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         intent.putExtra("new_month", month);
         intent.putExtra("new_year", year);
         getTargetFragment().onActivityResult(getTargetRequestCode(), 222, intent);
-
     }
 
 }
