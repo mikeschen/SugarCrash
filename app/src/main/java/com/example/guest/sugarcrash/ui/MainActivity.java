@@ -205,11 +205,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         integrator.setCameraId(0);
         integrator.setBeepEnabled(true);
         integrator.initiateScan();
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if(scanningResult != null){
+        if(scanningResult != null && resultCode==RESULT_OK){
             String scanContent = scanningResult.getContents();
             Intent searchIntent = new Intent(MainActivity.this, SearchResultsActivity.class);
             searchIntent.putExtra("inputText", scanContent);
