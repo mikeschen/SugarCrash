@@ -82,6 +82,7 @@ public class BaseActivity extends AppCompatActivity implements SearchDialogFragm
         integrator.setPrompt("Scan a food barcode");
         integrator.setCameraId(0);
         integrator.setBeepEnabled(true);
+        integrator.setBarcodeImageEnabled(true);
         integrator.initiateScan();
     }
 

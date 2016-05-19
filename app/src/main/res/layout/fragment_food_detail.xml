@@ -43,6 +43,9 @@
                 android:layout_height="wrap_content"
                 android:text="Food Name"
                 android:id="@+id/foodNameTextView"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/brandNameTextView"
@@ -68,9 +71,6 @@
                         android:text="Calories"
                         android:textSize="@dimen/nutrition_font_size"
                         android:id="@+id/caloriesTextView"
-                        android:layout_below="@+id/foodNameTextView"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
                         />
@@ -81,9 +81,6 @@
                         android:text="Sugar Content"
                         android:id="@+id/sugarTextView"
                         android:textSize="@dimen/nutrition_font_size"
-                        android:layout_below="@+id/caloriesTextView"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
                         />
@@ -100,10 +97,10 @@
                     android:layout_height="wrap_content"
                     android:text="Serving Size"
                     android:id="@+id/servingSizeTextView"
-                    android:layout_alignTop="@+id/caloriesTextView"
-                    android:layout_alignParentRight="true"
                     android:textSize="@dimen/nutrition_font_size"
-                    android:layout_alignParentEnd="true"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:scrollHorizontally="true"
                     android:textStyle="italic"
                     android:layout_gravity="right" />
 
@@ -112,10 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="Servings Per Container"
                     android:id="@+id/servingsPerContainerTextView"
-                    android:layout_alignTop="@+id/sugarTextView"
-                    android:layout_alignParentRight="true"
                     android:textSize="@dimen/nutrition_font_size"
-                    android:layout_alignParentEnd="true"
                     android:textStyle="italic"
                     android:layout_gravity="right" />
                 </LinearLayout>

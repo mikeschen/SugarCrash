@@ -25,12 +25,9 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @Bind(R.id.passwordLoginButton)
-    Button mPasswordLoginButton;
-    @Bind(R.id.emailEditText)
-    EditText mEmailEditText;
-    @Bind(R.id.passwordEditText)
-    EditText mPasswordEditText;
+    @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
+    @Bind(R.id.emailEditText) EditText mEmailEditText;
+    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
     @Bind(R.id.registerTextView)
     TextView mRegisterTextView;
     private Firebase mFirebaseRef;
@@ -47,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         mSharedPreferencesEditor = mSharedPreferences.edit();
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        checkLoginStatus();
         mPasswordLoginButton.setOnClickListener(this);
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle("Loading...");
@@ -94,8 +92,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mSharedPreferencesEditor.putString(Constants.KEY_USER_EMAIL,email).apply();
                 if (authData != null) {
                     String userUid = authData.getUid();
-                    String userInfo = authData.toString();
-                    Log.d(TAG, "Currently logged in: " + userInfo);
                     mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -126,5 +122,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     private void showErrorToast(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
+    public void checkLoginStatus(){
+        AuthData authData = mFirebaseRef.getAuth();
+        Log.v(TAG, "Authdata: " + authData);
+        Log.v(TAG, "sharedpref: " + mSharedPreferences.getString(Constants.KEY_UID, null));
+        if(authData != null && authData.getUid().equals(mSharedPreferences.getString(Constants.KEY_UID, null))){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 }
