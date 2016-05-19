@@ -1,5 +1,6 @@
 package com.example.guest.sugarcrash.ui;
 
+import android.content.res.Configuration;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +23,7 @@ public class FoodDetailActivity extends BaseActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
     private FoodPagerAdapter adapterViewPager;
     ArrayList<Food> mFoods = new ArrayList<>();
-
-
+    private int mOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,15 @@ public class FoodDetailActivity extends BaseActivity {
         adapterViewPager = new FoodPagerAdapter(getSupportFragmentManager(), mFoods);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
+        mOrientation = this.getResources().getConfiguration().orientation;
+        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+            // Remember that you should never show the action bar if the
+            // status bar is hidden, so hide that too if necessary.
+            getSupportActionBar().hide();
+        }
     }
-
-
 }
