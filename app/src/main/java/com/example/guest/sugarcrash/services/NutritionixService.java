@@ -102,6 +102,7 @@ public class NutritionixService {
                 foods.add(food);
             }
             else {
+                foods = null;
                 Log.d("Food not found", "Garrroidd");
             }
         }catch (IOException e) {
