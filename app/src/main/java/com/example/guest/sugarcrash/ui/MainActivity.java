@@ -130,13 +130,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Integer year = Integer.parseInt(today.toString().substring(0, 4));
                 Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
                 Integer day = Integer.parseInt(today.toString().substring(6));
-                Log.v("date", year + " " + month + " " + day);
                 c.set(year, month, day);
                 double summedSugars = 0;
                 for(SavedFood thisFood : todaysFoods){
                     summedSugars += thisFood.getSugars();
                 }
-                mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()), (float) summedSugars,  mColorArray[i-1]));
+                Log.v("date to string", c.toString());
+                mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) + "-" + c.get(Calendar.DATE), (float) summedSugars,  mColorArray[i-1]));
             }
         }
 
@@ -161,17 +161,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Integer year = Integer.parseInt(today.toString().substring(0, 4));
             Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
             Integer day = Integer.parseInt(today.toString().substring(6));
-            Log.v("date", year + " " + month + " " + day);
             c.set(year, month, day);
             int i = 0;
             for(SavedFood thisFood : selectedDayFoods){
-                mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + "\n" + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
+                mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + " - " + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
                 i++;
             }
         }
-//        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
-//        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
-
         mPieChart.startAnimation();
     }
 
