@@ -55,6 +55,7 @@ public class SearchResultsActivity extends BaseActivity {
     }
 
     private void searchDatabaseByTerm(){
+
         final NutritionixService nutritionixService = new NutritionixService();
         nutritionixService.searchFoods(mSearchString, new Callback() {
             @Override
@@ -64,8 +65,8 @@ public class SearchResultsActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mFoods = nutritionixService.processResults(response);
 
+                mFoods = nutritionixService.processResults(response);
                 SearchResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -108,6 +109,7 @@ public class SearchResultsActivity extends BaseActivity {
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
                             mSearchResultsRecyclerView.setLayoutManager(layoutManager);
                             mSearchResultsRecyclerView.setHasFixedSize(true);
+                            mAuthProgressDialog.dismiss();
                         }
                     }
                 });

@@ -112,6 +112,4 @@ public class BaseActivity extends AppCompatActivity implements SearchDialogFragm
             toast.show();
         }
     }
-
-
 }
