@@ -14,6 +14,7 @@ import com.example.guest.sugarcrash.Constants;
 import com.example.guest.sugarcrash.adapters.FoodListAdapter;
 import com.example.guest.sugarcrash.models.Food;
 import com.example.guest.sugarcrash.services.NutritionixService;
+import com.example.guest.sugarcrash.util.EndlessRecyclerViewScrollListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,14 +72,44 @@ public class SearchResultsActivity extends BaseActivity {
                     public void run() {
                         mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
                         mSearchResultsRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
                         mSearchResultsRecyclerView.setLayoutManager(layoutManager);
-                        mSearchResultsRecyclerView.setHasFixedSize(true);
+                        mSearchResultsRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+                            @Override
+                            public void onLoadMore(int page, int totalItemsCount) {
+                                loadMoreFromNutritionix(totalItemsCount);
+                            }
+                        });
                         mAuthProgressDialog.dismiss();
                     }
                 });
             }
         });
+    }
+
+    public void loadMoreFromNutritionix(int offset){
+        final NutritionixService nutritionixService = new NutritionixService();
+        nutritionixService.moreSearchFoods(mSearchString, offset, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mFoods.addAll(nutritionixService.processResults(response));
+
+                SearchResultsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int currentSize = mAdapter.getItemCount();
+                        mAdapter.notifyItemRangeInserted(currentSize, mFoods.size() - 1);
+                    }
+                });
+
+            }
+
+    });
     }
 
     private void searchDatabaseByUpc(){

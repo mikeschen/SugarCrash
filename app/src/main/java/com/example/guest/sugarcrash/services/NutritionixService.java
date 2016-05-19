@@ -57,6 +57,25 @@ public class NutritionixService {
 
     }
 
+    public void moreSearchFoods (String userSearch, int offset, Callback callback) {
+        int newLimit = offset + 20;
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL).newBuilder();
+        urlBuilder.addPathSegment(SEARCH_PATH_SEGMENT);
+        urlBuilder.addPathSegment(userSearch);
+        urlBuilder.addQueryParameter(FIELDS_QUERY, "*");
+        urlBuilder.addQueryParameter(RESULTS_QUERY, offset + ":" + newLimit);
+        urlBuilder.addQueryParameter(APPID_QUERY,APP_ID);
+        urlBuilder.addQueryParameter(APPKEY_QUERY, API_KEY);
+
+
+        String url = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
+
     public void searchUPC(String upc, Callback callback){
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL).newBuilder();
