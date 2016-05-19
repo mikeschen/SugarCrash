@@ -171,7 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             selectedPosition = mSelectedBar;
         }
-        Log.v("selectedPosition", selectedPosition + "");
+
         if(selectedPosition >= 0){
             Integer today = (Integer) dataKeys.toArray()[selectedPosition];
             ArrayList<SavedFood> selectedDayFoods = mFoodDataMap.get(today);
