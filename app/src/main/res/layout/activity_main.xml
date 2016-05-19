@@ -17,8 +17,10 @@
         android:textColor="@color/colorWhiteText"
         android:textSize="22sp"
         android:background="@drawable/rounded_corner"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_marginBottom="3dp"/>
 
     <LinearLayout
         android:id="@+id/LinearLayout02"
@@ -35,6 +37,7 @@
         android:padding="10dp"
         android:textSize="20sp"
         android:layout_weight="1"
+        android:layout_marginRight="2dp"
         />
 
     <Button
@@ -46,7 +49,8 @@
         android:textSize="20sp"
         android:padding="10dp"
         android:layout_weight="1"
-        android:background="@drawable/foodbutton" />
+        android:background="@drawable/foodbutton"
+        android:layout_marginLeft="2dp"/>
 
 </LinearLayout>
     <org.eazegraph.lib.charts.BarChart

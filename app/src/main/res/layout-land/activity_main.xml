@@ -26,10 +26,11 @@
             android:id="@+id/welcomeTextView"
             android:textColor="@color/colorWhiteText"
             android:textSize="16dp"
-            android:background="#252525"
+            android:background="@drawable/rounded_corner"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginBottom="3dp"/>
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
@@ -42,10 +43,11 @@
                 android:text="Search"
                 android:textColor="@color/colorWhiteText"
                 android:id="@+id/searchButton"
-                android:background="@color/colorAccent"
+                android:background="@drawable/mybutton"
                 android:padding="8dp"
                 android:textSize="14sp"
                 android:layout_weight="1"
+                android:layout_marginRight="2dp"
                 />
 
             <Button
@@ -57,7 +59,8 @@
                 android:textSize="14sp"
                 android:padding="8dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark" />
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/foodbutton" />
 
         </LinearLayout>
         <LinearLayout
