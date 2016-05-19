@@ -181,7 +181,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             c.set(year, month, day);
             int i = 0;
             for(SavedFood thisFood : selectedDayFoods){
-                mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + " - " + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
+                String pieSliceLabel = thisFood.getBrandName() + " - " + thisFood.getItemName();
+                if(pieSliceLabel.length() > 40){
+                    pieSliceLabel = pieSliceLabel.substring(0, 40) + "...";
+                }
+                mPieChart.addPieSlice(new PieModel(pieSliceLabel, (float) thisFood.getSugars(), mColorArray[i % 7]));
                 i++;
             }
         }
