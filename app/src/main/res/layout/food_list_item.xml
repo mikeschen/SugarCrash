@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/foodNameTextView"
         android:textSize="20sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
         android:text="Food Name"
         android:textColor="@color/colorPrimary" />
 
@@ -69,6 +72,9 @@
                 android:layout_height="wrap_content"
                 android:text="Serving Size"
                 android:id="@+id/servingSizeTextView"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:scrollHorizontally="true"
                 android:textSize="@dimen/nutrition_font_size"
                 android:layout_gravity="right"/>
 
