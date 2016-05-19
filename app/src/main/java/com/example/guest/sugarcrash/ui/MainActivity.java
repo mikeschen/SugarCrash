@@ -117,12 +117,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setUpBarChart(){
         mSelectedBar = 6;
         Set dataDays = mFoodDataMap.keySet();
+        if(dataDays.size() < 7){
+            mSelectedBar = dataDays.size() - 1;
+        }
         mBarChart.clearChart();
         Calendar c = Calendar.getInstance();
         for(int i = 7; i > 0 ; i--){
             int position = dataDays.size() - i;
-            Integer today = (Integer) dataDays.toArray()[position];
-            if(today != null && today >= 0){
+            if(position >= 0){
+                Integer today = (Integer) dataDays.toArray()[position];
                 ArrayList<SavedFood> todaysFoods = mFoodDataMap.get(today);
                 Integer year = Integer.parseInt(today.toString().substring(0, 4));
                 Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
@@ -144,19 +147,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mPieChart.clearChart();
         Calendar c = Calendar.getInstance();
         Set dataKeys = mFoodDataMap.keySet();
-        int offset = mSelectedBar - 7;
-        int selectedPosition = dataKeys.size() + offset;
-        Integer today = (Integer) dataKeys.toArray()[selectedPosition];
-        ArrayList<SavedFood> selectedDayFoods = mFoodDataMap.get(today);
-        Integer year = Integer.parseInt(today.toString().substring(0, 4));
-        Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
-        Integer day = Integer.parseInt(today.toString().substring(6));
-        Log.v("date", year + " " + month + " " + day);
-        c.set(year, month, day);
-        int i = 0;
-        for(SavedFood thisFood : selectedDayFoods){
-            mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + "\n" + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
-            i++;
+        int selectedPosition;
+        if(dataKeys.size() > 6){
+            int offset = mSelectedBar - 7;
+            selectedPosition = dataKeys.size() + offset;
+        } else {
+            selectedPosition = mSelectedBar;
+        }
+        Log.v("selectedPosition", selectedPosition + "");
+        if(selectedPosition >= 0){
+            Integer today = (Integer) dataKeys.toArray()[selectedPosition];
+            ArrayList<SavedFood> selectedDayFoods = mFoodDataMap.get(today);
+            Integer year = Integer.parseInt(today.toString().substring(0, 4));
+            Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
+            Integer day = Integer.parseInt(today.toString().substring(6));
+            Log.v("date", year + " " + month + " " + day);
+            c.set(year, month, day);
+            int i = 0;
+            for(SavedFood thisFood : selectedDayFoods){
+                mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + "\n" + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
+                i++;
+            }
         }
 //        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
 //        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
