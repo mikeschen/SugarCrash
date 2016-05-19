@@ -1,21 +1,23 @@
 package com.example.guest.sugarcrash.models;
 
+import java.util.Calendar;
+
 /**
  * Created by Guest on 5/16/16.
  */
 public class User {
     private String name;
     private String email;
-    private int age;
+    private int birthYear;
     private String sex;
 
 
     public User() {}
 
-    public User(String name, String email, int age, String sex) {
+    public User(String name, String email, int birthYear, String sex) {
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.birthYear = birthYear;
         this.sex = sex;
     }
 
@@ -27,8 +29,13 @@ public class User {
         return email;
     }
 
-    public int getAge() { return age; }
+    public int getBirthYear() { return birthYear; }
 
     public String getSex() { return sex; }
+
+    int year = Calendar.getInstance().get(Calendar.YEAR);
+    public int findAge() {
+        return (year - birthYear);
+    }
 }
 
