@@ -85,6 +85,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 mWelcomeTextView.setText(user.getName());
+                String userSex = user.getSex();
+                if (userSex.equals("male")) {
+                    mMaxDaily.setText("Recommended Daily Sugar: 37.5g");
+                }
+                else {
+                    mMaxDaily.setText("Recommended Daily Sugar: 25g");
+                }
+
             }
 
             @Override
