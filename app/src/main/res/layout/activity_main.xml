@@ -54,12 +54,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barchart"
         android:layout_width="wrap_content"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:padding="10dp"
         app:egBarWidth="20dp"
         app:egLegendHeight="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        app:egBarMargin="4dp"
+        app:egEnableScroll="true"
+        app:egShowDecimal="true"
         android:layout_below="@+id/LinearLayout02" />
 
     <org.eazegraph.lib.charts.PieChart
@@ -69,9 +72,11 @@
         android:layout_height="180dp"
         android:layout_below="@+id/barchart"
         android:padding="8dp"
-        app:egLegendTextSize="18sp"
+        app:egLegendTextSize="13sp"
         app:egUsePieRotation="true"
-        app:egValueTextSize="36sp"
+        app:egValueTextSize="31sp"
+        app:egAutoCenter="true"
+        app:egInnerValueUnit="g"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -82,7 +87,7 @@
         android:layout_below="@+id/piechart"
         android:id="@+id/maxDaily"
         android:textColor="#000000"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textAlignment="center" />
 
 </RelativeLayout>

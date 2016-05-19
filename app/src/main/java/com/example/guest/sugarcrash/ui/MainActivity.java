@@ -30,6 +30,7 @@ import com.firebase.client.ValueEventListener;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.communication.IOnBarClickedListener;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
@@ -54,10 +55,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Query mQuery;
     private Firebase mFirebaseSavedFoodRef;
     @Bind(R.id.welcomeTextView) TextView mWelcomeTextView;
-    private double x = 16.7;
     private int mOrientation;
     private Map<Integer, ArrayList> mFoodDataMap;
     private int[] mColorArray = {0xFF123456, 0xFF21166a, 0xFF563456, 0xFF873F56, 0xFF56B7F1, 0xFF343456, 0xFF1F04AC};
+    @Bind(R.id.barchart) BarChart mBarChart;
+    @Bind(R.id.piechart) PieChart mPieChart;
+    private int mSelectedBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +103,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             // status bar is hidden, so hide that too if necessary.
             getSupportActionBar().hide();
         }
+
+        mBarChart.setOnBarClickedListener(new IOnBarClickedListener() {
+            @Override
+            public void onBarClicked(int _Position) {
+                Log.d("barchart", "Position: " + _Position);
+                mSelectedBar = _Position;
+                setUpPieChart();
+            }
+        });
     }
 
     private void setUpBarChart(){
+        mSelectedBar = 6;
         Set dataDays = mFoodDataMap.keySet();
-        BarChart mBarChart = (BarChart) findViewById(R.id.barchart);
         mBarChart.clearChart();
         Calendar c = Calendar.getInstance();
         for(int i = 7; i > 0 ; i--){
@@ -129,11 +141,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void setUpPieChart(){
-        PieChart mPieChart = (PieChart) findViewById(R.id.piechart);
         mPieChart.clearChart();
-
-        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
-        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
+        Calendar c = Calendar.getInstance();
+        Set dataKeys = mFoodDataMap.keySet();
+        int offset = mSelectedBar - 7;
+        int selectedPosition = dataKeys.size() + offset;
+        Integer today = (Integer) dataKeys.toArray()[selectedPosition];
+        ArrayList<SavedFood> selectedDayFoods = mFoodDataMap.get(today);
+        Integer year = Integer.parseInt(today.toString().substring(0, 4));
+        Integer month = Integer.parseInt(today.toString().substring(4, 6)) - 1;
+        Integer day = Integer.parseInt(today.toString().substring(6));
+        Log.v("date", year + " " + month + " " + day);
+        c.set(year, month, day);
+        int i = 0;
+        for(SavedFood thisFood : selectedDayFoods){
+            mPieChart.addPieSlice(new PieModel(thisFood.getBrandName() + "\n" + thisFood.getItemName(), (float) thisFood.getSugars(), mColorArray[i % 7]));
+            i++;
+        }
+//        mPieChart.addPieSlice(new PieModel("NameOfFood1", 10, Color.parseColor("#56B7F1")));
+//        mPieChart.addPieSlice(new PieModel("NameOfFood2", 20, Color.parseColor("#FED70E")));
 
         mPieChart.startAnimation();
     }
