@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.guest.sugarcrash.ui.FoodDetailFragment">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:padding="4dp"
+                android:layout_margin="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Brand Name"
+                        android:id="@+id/brandNameTextView"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Food Name"
+                        android:id="@+id/foodNameTextView"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/brandNameTextView"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/foodNameTextView">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="#ffffff"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Calories"
+                                android:textSize="@dimen/nutrition_font_size"
+                                android:id="@+id/caloriesTextView"
+                                android:layout_below="@+id/foodNameTextView"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:textColor="@color/colorAccent"
+                                android:textStyle="bold"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sugar Content"
+                                android:id="@+id/sugarTextView"
+                                android:textSize="@dimen/nutrition_font_size"
+                                android:layout_below="@+id/caloriesTextView"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:textColor="@color/colorAccent"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="#ffffff"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Serving Size"
+                                android:id="@+id/servingSizeTextView"
+                                android:layout_alignTop="@+id/caloriesTextView"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/nutrition_font_size"
+                                android:layout_alignParentEnd="true"
+                                android:textStyle="italic"
+                                android:layout_gravity="right" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Servings Per Container"
+                                android:id="@+id/servingsPerContainerTextView"
+                                android:layout_alignTop="@+id/sugarTextView"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/nutrition_font_size"
+                                android:layout_alignParentEnd="true"
+                                android:textStyle="italic"
+                                android:layout_gravity="right" />
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="3dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/radioGroupLayout"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="0dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Number of Servings Consumed:"
+                        android:background="#ffffff"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/servingAmountTextView"
+                        android:textSize="16sp"
+                        android:gravity="center" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/servingsRadioGroup"
+                        android:orientation="horizontal"
+                        android:background="#ffffff"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center">
+
+                        <RadioButton android:id="@+id/halfRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/half"
+                            android:layout_marginRight="8dp"/>
+
+                        <RadioButton android:id="@+id/oneRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/one"
+                            android:layout_marginRight="8dp"/>
+
+                        <RadioButton android:id="@+id/twoRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/two"
+                            android:layout_marginRight="8dp"/>
+
+                        <RadioButton android:id="@+id/threeRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/three"/>
+                    </RadioGroup>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/currentDateTextView"
+                    android:text="@string/dateConsumed"
+                    android:background="#ffffff"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_below="@+id/radioGroupLayout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Change Date"
+                    android:id="@+id/datePickerButton"
+                    android:background="@drawable/mybutton"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_above="@+id/saveFoodButton"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"
+                    android:layout_margin="3dp"/>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Enter Food"
+                    android:id="@+id/saveFoodButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/foodbutton"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:layout_margin="3dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

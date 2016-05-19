@@ -15,17 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:padding="10dp"
+        android:padding="8dp"
         android:layout_margin="6dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                     android:background="#ffffff"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/servingAmountTextView"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:gravity="center" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -195,33 +195,37 @@
                 android:id="@+id/currentDateTextView"
                 android:text="@string/dateConsumed"
                 android:background="#ffffff"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:layout_below="@+id/radioGroupLayout"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
             <Button
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:text="Change Date"
                 android:id="@+id/datePickerButton"
                 android:background="@drawable/mybutton"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"
-                android:padding="10dp"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
                 android:layout_above="@+id/saveFoodButton"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_margin="3dp"/>
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:text="Enter Food"
                 android:id="@+id/saveFoodButton"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/mybutton"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/foodbutton"
                 android:textColor="@android:color/white"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:layout_margin="3dp" />
         </RelativeLayout>
     </LinearLayout>

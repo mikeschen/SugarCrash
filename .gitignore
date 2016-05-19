@@ -7,3 +7,4 @@
 /build
 /captures
 .pairs
+gradle.properties
