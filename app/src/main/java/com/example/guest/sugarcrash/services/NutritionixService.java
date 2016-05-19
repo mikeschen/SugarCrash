@@ -50,7 +50,6 @@ public class NutritionixService {
 
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
-        Log.v(TAG, "search url: " + request);
 
         Call call = client.newCall(request);
         call.enqueue(callback);
@@ -86,7 +85,6 @@ public class NutritionixService {
 
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
-        Log.v(TAG, "search url: " + request);
 
         Call call = client.newCall(request);
         call.enqueue(callback);
@@ -160,8 +158,6 @@ public class NutritionixService {
                     Food food = new Food(itemId, itemName, brandName, itemDescription, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol, sodium, sugars, servingsPerContainer, servingSizeQuantity, servingSizeUnit, servingWeightGrams, protein);
                     foods.add(food);
                 }
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -110,7 +110,6 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
                 default:
                     break;
             }
-            Log.v("clicked", "" + mNumberOfServings);
             }
 
         });
@@ -121,11 +120,8 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
         String formattedDate = sdf.format(c.getTime());
         mDatabaseDateFormatter = new SimpleDateFormat("yyyyMMdd");
         mSelectedDate = Integer.parseInt(mDatabaseDateFormatter.format(c.getTime()));
-        Log.v("calendar time", c.getTime() + "");
         mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
         return view;
-
-
     }
 
     @Override
@@ -140,7 +136,6 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
             default:
                 break;
         }
-
     }
 
     public void showDatePickerDialog(){
@@ -159,7 +154,6 @@ public class FoodDetailFragment extends BaseFragment implements View.OnClickList
             mSelectedDate = Integer.parseInt(mDatabaseDateFormatter.format(c.getTime()));
             String formattedDate = sdf.format(c.getTime());
             mCurrentDateTextView.setText(getResources().getString(R.string.dateConsumed) + formattedDate);
-            Log.v("date", mSelectedDate + "");
         }
     }
 

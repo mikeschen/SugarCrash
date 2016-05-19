@@ -94,7 +94,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                         if (authData != null) {
                             String userUid = authData.getUid();
                             String userInfo = authData.toString();
-                            Log.d(TAG, "Currently logged in: " + userInfo);
 
                             mSharedPreferencesEditor.putString(Constants.KEY_UID, userUid).apply();
                             Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
@@ -126,8 +125,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onError(FirebaseError firebaseError) {
-                Log.d(TAG, "error occurred " +
-                        firebaseError);
+
             }
         });
     }

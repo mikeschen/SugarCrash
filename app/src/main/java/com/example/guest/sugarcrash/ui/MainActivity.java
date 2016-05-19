@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d("Login", "Read failed");
+
             }
         });
 
@@ -126,7 +126,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBarChart.setOnBarClickedListener(new IOnBarClickedListener() {
             @Override
             public void onBarClicked(int _Position) {
-                Log.d("barchart", "Position: " + _Position);
                 mSelectedBar = _Position;
                 setUpPieChart();
             }
@@ -154,7 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 for(SavedFood thisFood : todaysFoods){
                     summedSugars += thisFood.getSugars();
                 }
-                Log.v("date to string", c.toString());
                 mBarChart.addBar(new BarModel(c.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) + "-" + c.get(Calendar.DATE), (float) summedSugars,  mColorArray[i-1]));
             }
         }
@@ -206,14 +204,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                     mFoodDataMap.put(eatenDate, dbFoods);
                 }
-                Log.v("array keys", mFoodDataMap.keySet() + "");
                 setUpBarChart();
                 setUpPieChart();
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d("saved data", "Read failed");
+
             }
         });
     }
@@ -233,6 +230,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
     }
-
-
 }
