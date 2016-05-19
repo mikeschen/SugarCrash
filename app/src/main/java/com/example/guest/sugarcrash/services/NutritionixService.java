@@ -78,7 +78,6 @@ public class NutritionixService {
 
         try {
             String jsonData = response.body().string();
-            Log.d("jsondate", jsonData);
             if(response.isSuccessful()) {
                 JSONObject foodsJSON = new JSONObject(jsonData);
                 String itemId = foodsJSON.getString("item_id");
@@ -86,7 +85,7 @@ public class NutritionixService {
                 String brandName = foodsJSON.getString("brand_name");
                 String itemDescription = foodsJSON.getString("item_description");
                 double calories = foodsJSON.getDouble("nf_calories");
-                double totalFat = foodsJSON.getDouble("nf_total_fat");
+                double totalFat = foodsJSON.optDouble("nf_total_fat", 0);
                 double saturatedFat = foodsJSON.optDouble("nf_saturated_fat", 0);
                 double polyunsaturatedFat = foodsJSON.optDouble("nf_polyunsaturated_fat", 0);
                 double monounsaturatedFat = foodsJSON.optDouble("nf_monounsaturated_fat", 0);
@@ -102,7 +101,7 @@ public class NutritionixService {
                 foods.add(food);
             }
             else {
-                Log.d("Food not found", "Garrroidd");
+                foods = null;
             }
         }catch (IOException e) {
             e.printStackTrace();

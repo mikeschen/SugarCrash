@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.guest.sugarcrash.Constants;
 import com.example.guest.sugarcrash.adapters.FoodListAdapter;
@@ -48,7 +49,6 @@ public class SearchResultsActivity extends BaseActivity {
         if(mSearchType != null && mSearchType.equals("string")){
             searchDatabaseByTerm();
         } else if(mSearchType != null && mSearchType.equals("upc") && mSearchString != null){
-            Log.v(TAG, mSearchString + " " + mSearchType);
             searchDatabaseByUpc();
         }
         mAuthProgressDialog.show();
@@ -69,9 +69,6 @@ public class SearchResultsActivity extends BaseActivity {
                 SearchResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //if (foods == null)
-                        //mAuthProgressDialog.dismiss();
-                        //else
                         mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
                         mSearchResultsRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
@@ -99,11 +96,19 @@ public class SearchResultsActivity extends BaseActivity {
                 SearchResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
-                        mSearchResultsRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
-                        mSearchResultsRecyclerView.setLayoutManager(layoutManager);
-                        mSearchResultsRecyclerView.setHasFixedSize(true);
+                        if (mFoods == null) {
+                            mAuthProgressDialog.dismiss();
+                            Toast.makeText(SearchResultsActivity.this, "Food Item Not Found", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(SearchResultsActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            mAdapter = new FoodListAdapter(getApplicationContext(), mFoods);
+                            mSearchResultsRecyclerView.setAdapter(mAdapter);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResultsActivity.this);
+                            mSearchResultsRecyclerView.setLayoutManager(layoutManager);
+                            mSearchResultsRecyclerView.setHasFixedSize(true);
+                        }
                     }
                 });
             }
