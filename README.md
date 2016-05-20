@@ -2,8 +2,6 @@
 
 An app that scans products and records sugar amount
 
-# ThreeO
-
 #### Authors:  Abby Rolling, Daren Schaad, Brad London, Michael Schennum
 
 ## Description
