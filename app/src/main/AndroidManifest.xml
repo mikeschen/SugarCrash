@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.guest.sugarcrash">
+    package="com.epicodus.guest.sugarcrash">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,31 +9,31 @@
         android:required="true" />
 
     <application
-        android:name=".SugarCrashApplication"
+        android:name="com.epicodus.guest.sugarcrash.SugarCrashApplication"
         android:allowBackup="true"
         android:icon="@drawable/sugar_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.CreateAccountActivity" />
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.MainActivity" />
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.CreateAccountActivity" />
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.LoginActivity">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SearchResultsActivity">
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.SearchResultsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.sugarcrash.ui.MainActivity" />
+                android:value="com.epicodus.guest.sugarcrash.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.BaseActivity" />
-        <activity android:name=".ui.FoodDetailActivity">
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.BaseActivity" />
+        <activity android:name="com.epicodus.guest.sugarcrash.ui.FoodDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.sugarcrash.ui.MainActivity" />
+                android:value="com.epicodus.guest.sugarcrash.ui.MainActivity" />
 
         </activity>
     </application>
