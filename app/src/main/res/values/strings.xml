@@ -8,4 +8,6 @@
     <string name="two">2</string>
     <string name="three">3</string>
     <string name="dateConsumed">Date Consumed:\n</string>
+    <string name="login"><u>Don\'t have an account? Sign up here!</u></string>
+    <string name="createAccount"><u>Already have an account? Log in here!</u></string>
 </resources>

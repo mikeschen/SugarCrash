@@ -74,8 +74,8 @@
             android:layout_marginTop="20dp"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textSize="15sp"
-            android:text="Don't have an account? Sign up here!"
+            android:textSize="16sp"
+            android:text="@string/login"
             android:layout_below="@id/passwordLoginButton"
             android:id="@+id/registerTextView"
             android:layout_gravity="center_horizontal" />
